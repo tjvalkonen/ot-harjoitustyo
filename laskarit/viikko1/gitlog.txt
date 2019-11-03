@@ -1,3 +1,4 @@
+
 tjvalkon@lx9-fuxi063:~/ot_viikko1$ git log --stat | cat
 commit d7ef71a8a5af7d1865010e79701c21aad8632e4f
 Author: Tomas Valkonen <tomas.valkonen@helsinki.fi>
