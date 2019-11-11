@@ -12,6 +12,6 @@ __Hyvä__ tästä tulee!
 
 ## Dokumentaatio
 
-[vaatimusmaarittely.md](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+[vaatimusmaarittely.md](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 
-[tyoaikakirjanpito.md](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
+[tyoaikakirjanpito.md](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
