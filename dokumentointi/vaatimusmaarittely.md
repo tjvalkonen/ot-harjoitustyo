@@ -25,12 +25,12 @@ Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin p
 
 ### Kirjautumisen jälkeen
 
-- käyttäjä näkee aktiiviset projektit listana.
+Tehty - käyttäjä näkee aktiiviset projektit listana.
 
-- käyttäjä voi valita aktiivisen projektin
+Tehty - käyttäjä voi valita aktiivisen projektin
   - valittuun aktiiviseen projektiin voi syöttää työaikoja
 
-- käyttäjä voi lisätä uuden projektin
+Tehty - käyttäjä voi lisätä uuden projektin
 
 - käyttäjä voi kirjautua ulos järjestelmästä
 
