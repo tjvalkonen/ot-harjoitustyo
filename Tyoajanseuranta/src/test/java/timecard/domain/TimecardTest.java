@@ -21,6 +21,6 @@ public class TimecardTest {
 
     @Test
     public void addingProjectReturnsTrue() {
-        assertEquals(true, timecardService.AddProject("name"));
+        assertEquals(true, timecardService.addProject("name"));
     }
 }

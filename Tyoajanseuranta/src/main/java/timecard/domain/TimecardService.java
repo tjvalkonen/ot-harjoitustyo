@@ -1,5 +1,8 @@
 package timecard.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import timecard.dao.ProjectDao;
 
 /**
@@ -19,7 +22,7 @@ public class TimecardService {
     * @param   name   projektin nimi
     */
     
-    public boolean AddProject(String name) {
+    public boolean addProject(String name) {
         
         Project project = new Project(name);
         try {   
@@ -28,6 +31,18 @@ public class TimecardService {
             return false;
         }
         return true;
+    }
+    
+    public List<Project> getProjects() {
+//        if (loggedIn == null) {
+//            return new ArrayList<>();
+//        }
+          
+        return projectDao.getAll()
+            .stream()
+//            .filter(t-> t.getUser().equals(loggedIn))
+//            .filter(t->!t.isDone())
+            .collect(Collectors.toList());
     }
     
 }

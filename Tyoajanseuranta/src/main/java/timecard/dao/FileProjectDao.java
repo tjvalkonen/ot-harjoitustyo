@@ -30,7 +30,7 @@ public class FileProjectDao implements ProjectDao {
         }        
     }
     
-    private void save() throws Exception{
+    private void save() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (Project project : projects) {
                 writer.write(project.getId() + ";" + project.getName() + "\n");
