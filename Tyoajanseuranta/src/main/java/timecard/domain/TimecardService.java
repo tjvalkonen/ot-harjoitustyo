@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import timecard.dao.ProjectDao;
+import timecard.dao.TimecardDao;
 
 /**
  * Sovelluslogiikka
@@ -11,9 +12,13 @@ import timecard.dao.ProjectDao;
 
 public class TimecardService {
     private ProjectDao projectDao;
+    private TimecardDao timecardDao;
     
-    public TimecardService(ProjectDao projectDao) {
+    private int projectId;
+    
+    public TimecardService(ProjectDao projectDao, TimecardDao timecardDao) {
         this.projectDao = projectDao;
+        this.timecardDao = timecardDao;
     }
     
     /**
@@ -42,6 +47,24 @@ public class TimecardService {
             .stream()
 //            .filter(t-> t.getUser().equals(loggedIn))
 //            .filter(t->!t.isDone())
+            .collect(Collectors.toList());
+    }
+    
+    public boolean addTimecard(int projectId, int time, int type, String description) {
+        
+        Timecard timecard = new Timecard(projectId, time, type, description);
+        try {   
+            timecardDao.add(timecard);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
+    }
+    
+    public List<Timecard> getTimecards(int projectId) {          
+        return timecardDao.getAll()
+            .stream()
+            .filter(t-> t.getProjectId()==projectId)
             .collect(Collectors.toList());
     }
     

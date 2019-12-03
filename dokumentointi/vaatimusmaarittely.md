@@ -28,7 +28,7 @@ Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin p
 Tehty - käyttäjä näkee aktiiviset projektit listana.
 
 Tehty - käyttäjä voi valita aktiivisen projektin
-  - valittuun aktiiviseen projektiin voi syöttää työaikoja
+Tehty  - valittuun aktiiviseen projektiin voi syöttää työaikoja
 
 Tehty - käyttäjä voi lisätä uuden projektin
 

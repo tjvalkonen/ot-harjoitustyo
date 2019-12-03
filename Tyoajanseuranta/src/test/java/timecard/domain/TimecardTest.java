@@ -12,11 +12,12 @@ public class TimecardTest {
     
     TimecardService timecardService;
     FakeProjectDao projectDao;
+    FakeTimecardDao timecardDao;
     
     @Before
     public void setUp() {
         projectDao = new FakeProjectDao();
-        timecardService = new TimecardService(projectDao);
+        timecardService = new TimecardService(projectDao, timecardDao);
     }
 
     @Test

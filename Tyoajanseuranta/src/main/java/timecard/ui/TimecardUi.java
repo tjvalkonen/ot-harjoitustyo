@@ -20,8 +20,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import timecard.dao.FileProjectDao;
+import timecard.dao.FileTimecardDao;
 import timecard.domain.TimecardService;
 import timecard.domain.Project;
+import timecard.domain.Timecard;
 
 public class TimecardUi extends Application {
     private TimecardService timecardService;
@@ -36,12 +38,17 @@ public class TimecardUi extends Application {
     private Project selectedProject;
 
     private VBox projectNodes;
+    private VBox timecardNodes;
     
-    
-    private HBox projectTopPane;
+    private VBox projectTopPane;
     private VBox projectInfoPane;
+
+    // Style UI elements
     
-    
+    private String cssLayout = "-fx-border-color: gray;\n" +
+                   "-fx-border-insets: 2;\n" +
+                   "-fx-border-width: 1;\n" +
+                   "-fx-border-style: solid;\n";
         
     @Override
     public void init() throws Exception {
@@ -49,22 +56,22 @@ public class TimecardUi extends Application {
         properties.load(new FileInputStream("config.properties"));        
         
         String projectFile = properties.getProperty("projectFile");
+        String timecardFile = properties.getProperty("timecardFile");
 
         FileProjectDao projectDao = new FileProjectDao(projectFile);
+        FileTimecardDao timecardDao = new FileTimecardDao(timecardFile);
 
-        timecardService = new TimecardService(projectDao);
+        timecardService = new TimecardService(projectDao, timecardDao);
     }
 
     public Node createProjectNode(Project project) {
-        HBox box = new HBox(10);
+        HBox box = new HBox(1);
+        box.setStyle(cssLayout);
         Label label  = new Label(project.getName());
-        label.setMinHeight(28);
+        label.setMinHeight(1);
 
         Button button = new Button("Select");
         button.setOnAction(e->{
-            // Project timecard
-            //project(project);
-            
             this.selectedProject = project;
             primaryStage.setScene(projectScene);
             redrawProject();
@@ -73,10 +80,40 @@ public class TimecardUi extends Application {
                 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        box.setPadding(new Insets(0,5,0,5));
+        box.setPadding(new Insets(0,1,0,1));
         
         box.getChildren().addAll(label, spacer, button);
         return box;
+    }
+    
+    public Node createTimecardNode(Timecard timecard) {
+        HBox box = new HBox(5);
+        box.setStyle(cssLayout);
+        Label time  = new Label(Integer.toString(timecard.getTime()));
+        time.setPrefWidth(75);
+        Label type  = new Label(Integer.toString(timecard.getType()));
+        type.setPrefWidth(75);
+        Label description  = new Label(timecard.getDescription());
+        description.setPrefWidth(250);
+        time.setMinHeight(28);
+        type.setMinHeight(28);
+        description.setMinHeight(28);        
+                
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        box.setPadding(new Insets(0,1,0,1));
+
+        box.getChildren().addAll(time, type, description ); // spacer
+        return box;
+    }
+    
+    public void redrawTimecards() {
+        timecardNodes.getChildren().clear();
+        
+        List<Timecard> timecards = timecardService.getTimecards(selectedProject.getId());
+        timecards.forEach(timecard->{
+            timecardNodes.getChildren().add(createTimecardNode(timecard));
+        });
     }
     
     public void redrawProjectlist() {
@@ -86,54 +123,113 @@ public class TimecardUi extends Application {
         projects.forEach(project->{
             projectNodes.getChildren().add(createProjectNode(project));
         });     
-    }
-    
+    }   
     
     public void redrawProject() {
+
         Button projectsListButton = new Button("Projects List");        
         projectsListButton.setOnAction(e->{
             primaryStage.setScene(projectsListScene);   
         });
+        
+        // add timecard 
+        
+        HBox newTimecardLabelsPane = new HBox(5);
+        HBox newTimecardPane = new HBox(5);
+        newTimecardPane.setPadding(new Insets(5));
+        
+        Label newTimecardTimeLabel = new Label("Time");
+        newTimecardTimeLabel.setPrefWidth(75);
+        TextField newTimecardTimeInput = new TextField();  
+        newTimecardTimeInput.setPrefWidth(75);
+        
+        Label newTimecardTypeLabel = new Label("Type");
+        newTimecardTypeLabel.setPrefWidth(75);
+        TextField newTimecardTypeInput = new TextField();      
+        newTimecardTypeInput.setPrefWidth(75);
+        
+        Label newTimecardDescriptionLabel = new Label("Description");
+        TextField newTimecardDescriptionInput = new TextField(); 
+        newTimecardDescriptionInput.setPrefWidth(250);
+        newTimecardPane.setPrefWidth(450);  
+        
+        Label timecardCreationMessage = new Label();
+        
+        Button addTimecardButton = new Button("add time");
+        addTimecardButton.setPadding(new Insets(5));
+
+        addTimecardButton.setOnAction(e->{
+                       
+            int time = Integer.parseInt(newTimecardTimeInput.getText());
+            int type = Integer.parseInt(newTimecardTypeInput.getText());
+            String description = newTimecardDescriptionInput.getText();        
+            
+            if (timecardService.addTimecard(selectedProject.getId(), time, type, description)){
+//                Success!
+                redrawProject();
+            } else {
+//                if something went wrong  
+            }
+        });
+        newTimecardLabelsPane.getChildren().addAll(newTimecardTimeLabel, newTimecardTypeLabel, newTimecardDescriptionLabel);
+        newTimecardPane.getChildren().addAll(newTimecardTimeInput, newTimecardTypeInput, newTimecardDescriptionInput, addTimecardButton); 
+
+        redrawTimecards();
+        
         projectTopPane.getChildren().clear();
-        projectTopPane.getChildren().addAll(projectsListButton);
-  
+        projectTopPane.getChildren().addAll(projectsListButton,project(selectedProject), newTimecardLabelsPane, newTimecardPane);  
+        
         projectInfoPane.getChildren().clear();
         projectInfoPane.getChildren().add(project(selectedProject));
     }
     
     public Node project (Project project) {
-        HBox box = new HBox(10);
+        HBox box = new HBox(1);
         Label label  = new Label(selectedProject.getName());
-        label.setMinHeight(28);
+        label.setMinHeight(1);
         Region spacer = new Region();
         
-        box.setPadding(new Insets(0,5,0,5));
+        box.setPadding(new Insets(0,1,0,1));
         box.getChildren().addAll(label, spacer);
         
         // Timecard
         
-        return box;
+        return box;       
+    }
+    
+    public Node timecard (Timecard timecard) {
+        HBox box = new HBox(1);
+        Label time  = new Label(Integer.toString(timecard.getTime()));
+        Label type  = new Label(Integer.toString(timecard.getType()));
+        Label description  = new Label(timecard.getDescription());
+        time.setMinHeight(1);
+        type.setMinHeight(1);
+        description.setMinHeight(1);
+        Region spacer = new Region();
         
+        box.setPadding(new Insets(0,1,0,1));
+        box.getChildren().addAll(time, type, description, spacer);
+        
+        return box;     
     }
             
     @Override
     public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        
+        this.primaryStage = primaryStage;        
         
         // Projects list scene
         
-        HBox projectsTopPane = new HBox(10);
-        VBox projectsBottomPane = new VBox(10);
+        HBox projectsTopPane = new HBox(1);
+        VBox projectsBottomPane = new VBox(1);
 
         // List active projects here
         
         ScrollPane projectScollbar = new ScrollPane();
         BorderPane projectsPane = new BorderPane(projectScollbar);
 
-        projectNodes = new VBox(10);
-        projectNodes.setMaxWidth(280);
-        projectNodes.setMinWidth(280);
+        projectNodes = new VBox(1);
+        projectNodes.setMaxWidth(400);
+        projectNodes.setMinWidth(400);
         redrawProjectlist();
         
         projectScollbar.setContent(projectNodes);
@@ -148,15 +244,14 @@ public class TimecardUi extends Application {
         projectsTopPane.getChildren().addAll(addProjectsButton);       
         projectsBottomPane.getChildren().addAll();
         
-        projectsListScene = new Scene(projectsPane, 400, 250);
+        projectsListScene = new Scene(projectsPane, 500, 250);
         
-        
-        
+
         
         // Project scene
                
-        projectTopPane = new HBox(10);
-        projectInfoPane = new VBox(10);
+        projectTopPane = new VBox(1);
+        projectInfoPane = new VBox(1);
         //HBox projectBox = new HBox(10);
         
         ScrollPane projectTimecardScollbar = new ScrollPane();
@@ -168,27 +263,38 @@ public class TimecardUi extends Application {
         }
         
         Label projectLabel  = new Label(projectName); //selectedProject.getName()
-        projectLabel.setMinHeight(28);
+        projectLabel.setMinHeight(1);
         
         Button projectsListButton = new Button("Projects List");        
         projectsListButton.setOnAction(e->{
             primaryStage.setScene(projectsListScene);   
-        });    
+        });
+        
+        // List timecards
+        
+        //ScrollPane timecardScollbar = new ScrollPane();
+        
+        timecardNodes = new VBox(1);
+        timecardNodes.setMaxWidth(400);
+        timecardNodes.setMinWidth(400);
+     
+        
+        projectTimecardScollbar.setContent(timecardNodes);       
         
         projectTopPane.getChildren().addAll(projectsListButton);
         projectPane.setTop(projectTopPane);
-        projectPane.setCenter(projectInfoPane);
+        //projectPane.setBottom(projectInfoPane);
         
-        projectScene = new Scene(projectPane, 400, 250);
+        projectScene = new Scene(projectPane, 500, 250);
         
         
         
         // add ProjectScene
         
-        VBox newProjectPane = new VBox(10);
+        VBox newProjectPane = new VBox(1);
         
-        HBox newProjectNamePane = new HBox(10);
-        newProjectNamePane.setPadding(new Insets(10));
+        HBox newProjectNamePane = new HBox(1);
+        newProjectNamePane.setPadding(new Insets(1));
         TextField newProjectNameInput = new TextField(); 
         Label newProjectNameLabel = new Label("Project Name");
         newProjectNameLabel.setPrefWidth(150);
@@ -197,7 +303,7 @@ public class TimecardUi extends Application {
         Label projectCreationMessage = new Label();
         
         Button addProjectButton = new Button("add project");
-        addProjectButton.setPadding(new Insets(10));
+        addProjectButton.setPadding(new Insets(5));
 
         addProjectButton.setOnAction(e->{
             String name = newProjectNameInput.getText();
@@ -213,7 +319,7 @@ public class TimecardUi extends Application {
         
         newProjectPane.getChildren().addAll(projectsListButton, projectCreationMessage, newProjectNamePane, addProjectButton); 
        
-        addProjectScene = new Scene(newProjectPane, 400, 250);               
+        addProjectScene = new Scene(newProjectPane, 500, 250);               
         
         // setup primary stage
         
