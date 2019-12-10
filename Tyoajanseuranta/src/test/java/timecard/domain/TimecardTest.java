@@ -13,12 +13,14 @@ public class TimecardTest {
     TimecardService timecardService;
     FakeProjectDao projectDao;
     FakeTimecardDao timecardDao;
+    FakeUserDao userDao;
     
     @Before
     public void setUp() {
         projectDao = new FakeProjectDao();
         timecardDao = new FakeTimecardDao();
-        timecardService = new TimecardService(projectDao, timecardDao);
+        userDao = new FakeUserDao();
+        timecardService = new TimecardService(projectDao, timecardDao, userDao);
     }
 
     @Test
@@ -33,7 +35,7 @@ public class TimecardTest {
     
     @Test
     public void addingTimecardReturnsTrue() {
-        assertEquals(true, timecardService.addTimecard(1,1,1,"testi"));
+        assertEquals(true, timecardService.addTimecard(1,1,1,"testi","user"));
     }
     
     @Test
