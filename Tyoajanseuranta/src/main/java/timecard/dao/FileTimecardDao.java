@@ -44,7 +44,7 @@ public class FileTimecardDao implements TimecardDao {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (Timecard timecard : timecards) {
                 writer.write(timecard.getId() + ";" + timecard.getProjectId() +
-                        ";" + timecard.getTime() + ";" + timecard.getType() + ";" + timecard.getDescription() + ";" + timecard.getUsername() +"\n"); //Timecards content to file
+                        ";" + timecard.getTime() + ";" + timecard.getType() + ";" + timecard.getDescription() + ";" + timecard.getUsername() + "\n"); //Timecards content to file
             }
         }
     }    

@@ -120,7 +120,7 @@ public class TimecardService {
         User user = new User(username, name);
         try {
             userDao.create(user);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
 
