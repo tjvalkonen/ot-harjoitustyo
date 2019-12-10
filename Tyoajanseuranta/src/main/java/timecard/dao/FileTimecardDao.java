@@ -9,7 +9,7 @@ import java.util.Scanner;
 import timecard.domain.Project;
 import timecard.domain.Timecard;
 
-public class FileTimecardDao implements TimecardDao{
+public class FileTimecardDao implements TimecardDao {
     public List<Timecard> timecards;
     private String file;
     
@@ -27,9 +27,10 @@ public class FileTimecardDao implements TimecardDao{
                 int time = Integer.parseInt(parts[2]);
                 int type = Integer.parseInt(parts[3]);
                 String description = parts[4];
+                String username = parts[5];
                 
                 
-                Timecard timecard = new Timecard(id, projectId, time, type, description); //Timecards content from file
+                Timecard timecard = new Timecard(id, projectId, time, type, description, username); //Timecards content from file
                 timecards.add(timecard);
             }
         } catch (Exception e) {
@@ -43,7 +44,7 @@ public class FileTimecardDao implements TimecardDao{
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (Timecard timecard : timecards) {
                 writer.write(timecard.getId() + ";" + timecard.getProjectId() +
-                        ";" + timecard.getTime() +";" + timecard.getType() + ";" + timecard.getDescription() + "\n"); //Timecards content to file
+                        ";" + timecard.getTime() + ";" + timecard.getType() + ";" + timecard.getDescription() + ";" + timecard.getUsername() +"\n"); //Timecards content to file
             }
         }
     }    

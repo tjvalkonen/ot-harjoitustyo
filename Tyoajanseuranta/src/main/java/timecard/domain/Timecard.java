@@ -14,22 +14,25 @@ public class Timecard {
     private int time;
     private int type;
     private String description;
+    private String username;
 
-    public Timecard(int id, int projectId, int time, int type, String description) { // Date date,
+    public Timecard(int id, int projectId, int time, int type, String description, String username) { // Date date,
         this.id = id;
         this.projectId = projectId;
 //        this.date = date;
         this.time = time;
         this.type = type;
         this.description = description;
+        this.username = username;
     }
     
-    public Timecard(int projectId, int time, int type, String description) {
+    public Timecard(int projectId, int time, int type, String description, String username) {
         this.projectId = projectId;
 //        this.date = date;
         this.time = time;
         this.type = type;
         this.description = description;
+        this.username = username;
     }
     
     public void setId(int id) {
@@ -60,7 +63,7 @@ public class Timecard {
         this.time = time;
     }    
     
-    public int getTime(){
+    public int getTime() {
         return time;
     }
     
@@ -78,6 +81,14 @@ public class Timecard {
     
     public String getDescription() {
         return description;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getUsername(){
+        return username;
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import timecard.dao.ProjectDao;
 import timecard.dao.TimecardDao;
+import timecard.dao.UserDao;
 
 /**
  * Sovelluslogiikka
@@ -13,12 +14,15 @@ import timecard.dao.TimecardDao;
 public class TimecardService {
     private ProjectDao projectDao;
     private TimecardDao timecardDao;
+    private UserDao userDao;
+    private User loggedIn;
     
     private int projectId;
     
-    public TimecardService(ProjectDao projectDao, TimecardDao timecardDao) {
+    public TimecardService(ProjectDao projectDao, TimecardDao timecardDao, UserDao userDao) {
         this.projectDao = projectDao;
         this.timecardDao = timecardDao;
+        this.userDao = userDao;
     }
     
     /**
@@ -39,20 +43,15 @@ public class TimecardService {
     }
     
     public List<Project> getProjects() {
-//        if (loggedIn == null) {
-//            return new ArrayList<>();
-//        }
           
         return projectDao.getAll()
             .stream()
-//            .filter(t-> t.getUser().equals(loggedIn))
-//            .filter(t->!t.isDone())
             .collect(Collectors.toList());
     }
     
-    public boolean addTimecard(int projectId, int time, int type, String description) {
+    public boolean addTimecard(int projectId, int time, int type, String description, String username) {
         
-        Timecard timecard = new Timecard(projectId, time, type, description);
+        Timecard timecard = new Timecard(projectId, time, type, description, username);
         try {   
             timecardDao.add(timecard);
         } catch (Exception ex) {
@@ -64,8 +63,67 @@ public class TimecardService {
     public List<Timecard> getTimecards(int projectId) {          
         return timecardDao.getAll()
             .stream()
-            .filter(t-> t.getProjectId()==projectId)
+            .filter(t-> t.getProjectId() == projectId)
             .collect(Collectors.toList());
     }
+
+    /**
+    * sisäänkirjautuminen
+    * 
+    * @param   username   käyttäjätunnus
+    * 
+    * @return true jos käyttäjätunnus on olemassa, muuten false 
+    */    
     
+    public boolean login(String username) {
+        User user = userDao.findByUsername(username);
+        if (user == null) {
+            return false;
+        }
+        
+        loggedIn = user;
+        
+        return true;
+    }
+    
+    /**
+    * kirjautuneena oleva käyttäjä
+    * 
+    * @return kirjautuneena oleva käyttäjä 
+    */   
+    
+    public User getLoggedUser() {
+        return loggedIn;
+    }
+   
+    /**
+    * uloskirjautuminen
+    */  
+    
+    public void logout() {
+        loggedIn = null;  
+    }
+    
+    /**
+    * uuden käyttäjän luominen
+    * 
+    * @param   username   käyttäjätunnus
+    * @param   name   käyttäjän nimi
+    * 
+    * @return true jos käyttäjätunnus on luotu, muuten false 
+    */ 
+    
+    public boolean createUser(String username, String name)  {   
+        if (userDao.findByUsername(username) != null) {
+            return false;
+        }
+        User user = new User(username, name);
+        try {
+            userDao.create(user);
+        } catch(Exception e) {
+            return false;
+        }
+
+        return true;
+    }    
 }
