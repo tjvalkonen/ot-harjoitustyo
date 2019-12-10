@@ -16,12 +16,12 @@ Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin p
 
 ### Ennen kirjautumista
 
-- käyttäjä voi luoda järjestelmään käyttäjätunnuksen
-  - käyttäjätunnuksen täytyy olla uniikki ja pituudeltaan vähintään 3 merkkiä
+Tehty - käyttäjä voi luoda järjestelmään käyttäjätunnuksen
+Tehty  - käyttäjätunnuksen täytyy olla uniikki ja pituudeltaan vähintään 3 merkkiä
 
-- käyttäjä voi kirjautua järjestelmään
-  - kirjautuminen onnistuu syötettäessä olemassaoleva käyttäjätunnus kirjautumislomakkeelle
-  - jos käyttäjää ei olemassa, ilmoittaa järjestelmä tästä
+Tehty - käyttäjä voi kirjautua järjestelmään
+Tehty  - kirjautuminen onnistuu syötettäessä olemassaoleva käyttäjätunnus kirjautumislomakkeelle
+Tehty  - jos käyttäjää ei olemassa, ilmoittaa järjestelmä tästä
 
 ### Kirjautumisen jälkeen
 
