@@ -25,7 +25,7 @@ public class TimecardTest {
 
     @Test
     public void addingProjectReturnsTrue() {
-        assertEquals(true, timecardService.addProject("name"));
+        assertEquals(true, timecardService.addProject("name", 60));
     }
     
     @Test

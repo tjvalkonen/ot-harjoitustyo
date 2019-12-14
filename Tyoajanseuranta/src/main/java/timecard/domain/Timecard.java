@@ -1,5 +1,4 @@
 package timecard.domain;
-
 /**
  * Yksittäistä työajanmerkintää kuvaava luokka 
  */

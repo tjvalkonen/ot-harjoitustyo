@@ -20,7 +20,8 @@ public class FileProjectDao implements ProjectDao {
             while (reader.hasNextLine()) {
                 String[] parts = reader.nextLine().split(";");
                 int id = Integer.parseInt(parts[0]);
-                Project project = new Project(id, parts[1]);
+                int etc = Integer.parseInt(parts[2]);
+                Project project = new Project(id, parts[1], etc);
                 projects.add(project);
             }
         } catch (Exception e) {
@@ -33,7 +34,7 @@ public class FileProjectDao implements ProjectDao {
     private void save() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (Project project : projects) {
-                writer.write(project.getId() + ";" + project.getName() + "\n");
+                writer.write(project.getId() + ";" + project.getName() + ";" + project.getEtc() + "\n");
             }
         }
     }    

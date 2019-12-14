@@ -31,9 +31,9 @@ public class TimecardService {
     * @param   name   projektin nimi
     */
     
-    public boolean addProject(String name) {
+    public boolean addProject(String name, int etc) {
         
-        Project project = new Project(name);
+        Project project = new Project(name, etc);
         try {   
             projectDao.add(project);
         } catch (Exception ex) {
@@ -49,6 +49,10 @@ public class TimecardService {
             .collect(Collectors.toList());
     }
     
+    /**
+    * Uuden työajan lisääminen
+    *
+    */
     public boolean addTimecard(int projectId, int time, int type, String description, String username) {
         
         Timecard timecard = new Timecard(projectId, time, type, description, username);
@@ -65,6 +69,20 @@ public class TimecardService {
             .stream()
             .filter(t-> t.getProjectId() == projectId)
             .collect(Collectors.toList());
+    }
+    
+    public int getProjectTotalTime(int projectId) {          
+        List<Timecard> timecards = timecardDao.getAll()
+            .stream()
+            .filter(t-> t.getProjectId() == projectId)
+            .collect(Collectors.toList());
+        int time = 0;
+        for(Timecard t : timecards){
+            time += t.getTime();
+        }
+        return time;
+        
+        
     }
 
     /**
