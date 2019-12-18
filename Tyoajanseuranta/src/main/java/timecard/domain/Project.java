@@ -40,6 +40,13 @@ public class Project {
         return etc;
     }
 
+    public String getEtcString() {
+        int hours = etc / 60;
+        int minutes = etc % 60;
+        String timeString = Integer.toString(hours) + "h " + Integer.toString(minutes) + "min";
+        
+        return timeString;
+    }
 
     @Override
     public boolean equals(Object obj) {

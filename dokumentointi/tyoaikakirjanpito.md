@@ -12,4 +12,5 @@
 | 10.12.| 10   | Käyttäjätunnuksen lisääminen ja kirjautuminen (myös ongelmia checkstylen kanssa) |
 | 15.12.| 3    | Projektin edistämistä |
 | 17.12.| 6    | Uloskirjautuminen ja projektin yhteenvetonäkymä |
+| 18.12.| 4    | Toiminnallisuuksien ja ulkoasun kehitystä |
 |       | 42   | Yhteensä |

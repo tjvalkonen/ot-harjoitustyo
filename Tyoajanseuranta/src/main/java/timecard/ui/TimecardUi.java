@@ -79,7 +79,10 @@ public class TimecardUi extends Application {
    
     private String cssLayoutH2 = "-fx-font-size: 16;\n";       
     
-    private String cssLayoutBold = "-fx-font-weight: bold;\n";   
+    private String cssLayoutBold = "-fx-font-weight: bold;\n";
+    
+    private String cssLayoutWhiteBold = "-fx-font-weight: bold;\n" +
+                   "-fx-text-fill: #FFFFFF;\n";  ; 
     
     @Override
     public void init() throws Exception {
@@ -101,7 +104,8 @@ public class TimecardUi extends Application {
         HBox box = new HBox(0);
         box.setStyle(cssLayoutBorder01);
         Label label  = new Label(project.getName());
-        label.setMinHeight(1);
+        label.setStyle(cssLayoutH2);
+        label.setMinHeight(0);
 
         Button button = new Button("Select");
         button.setOnAction(e->{
@@ -109,12 +113,13 @@ public class TimecardUi extends Application {
             primaryStage.setScene(projectScene);
             redrawProject();
         });
+        button.setPadding(new Insets(5));
                 
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        box.setPadding(new Insets(0,0,0,0));
+        Region spacer05 = new Region();
+        HBox.setHgrow(spacer05, Priority.ALWAYS);
+        box.setPadding(new Insets(5,5,5,5));
         
-        box.getChildren().addAll(label, spacer, button);
+        box.getChildren().addAll(label, spacer05, button);
         return box;
     }
     
@@ -130,6 +135,7 @@ public class TimecardUi extends Application {
         Label time  = new Label(timeSting);
         time.setPrefWidth(125);        
         time.setStyle(cssLayoutTestBorder);
+        time.setPadding(new Insets(5,5,5,5));
         
         Label type  = new Label();
         
@@ -148,12 +154,15 @@ public class TimecardUi extends Application {
         
         type.setPrefWidth(152);
         type.setStyle(cssLayoutTestBorder);
+        type.setPadding(new Insets(5,5,5,5));
         
         Label description  = new Label(timecard.getDescription());
+        description.setPadding(new Insets(5,5,5,5));
         description.setPrefWidth(255);
         description.setStyle(cssLayoutTestBorder);
                 
         Label username  = new Label(timecard.getUsername());
+        username.setPadding(new Insets(5,5,5,5));
         username.setPrefWidth(150);
         username.setStyle(cssLayoutTestBorder);
         
@@ -162,13 +171,9 @@ public class TimecardUi extends Application {
         description.setMinHeight(28);        
         username.setMinHeight(28);
         
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        box.setPadding(new Insets(0,0,0,0));
-
         box.getChildren().addAll(time, type, description, username);
-        box.setMaxWidth(700);
-        box.setMinWidth(700);
+        box.setMaxWidth(750);
+        box.setMinWidth(750);
         return box;
     }
     
@@ -192,11 +197,14 @@ public class TimecardUi extends Application {
     
     public void redrawProject() {
 
-        Button projectsListButton = new Button("Projects");        
+        Button projectsListButton = new Button("Projects List");        
         projectsListButton.setOnAction(e->{
             primaryStage.setScene(projectsListScene);   
         });
         projectsListButton.setPadding(new Insets(5));
+        
+        projectsListButton.setMaxWidth(150);
+        projectsListButton.setMinWidth(150);
         
         // add timecard 
         
@@ -266,22 +274,27 @@ public class TimecardUi extends Application {
         VBox timeInputH = new VBox();
         timeInputH.setStyle(cssLayoutTestBorder);
         timeInputH.getChildren().addAll(newTimecardHoursLabel, newTimecardHoursInput);
+        timeInputH.setPadding(new Insets(5,5,5,5));
         
         VBox timeInputM = new VBox();
         timeInputM.setStyle(cssLayoutTestBorder);
         timeInputM.getChildren().addAll(newTimecardMinutesLabel, newTimecardMinutesInput);
+        timeInputM.setPadding(new Insets(5,5,5,5));
         
         VBox typeInput = new VBox();
         typeInput.setStyle(cssLayoutTestBorder);
         typeInput.getChildren().addAll(newTimecardTypeLabel, jobType);
+        typeInput.setPadding(new Insets(5,5,5,5));
         
         VBox descriptionInput = new VBox();
         descriptionInput.setStyle(cssLayoutTestBorder);
         descriptionInput.getChildren().addAll(newTimecardDescriptionLabel, newTimecardDescriptionInput);
+        descriptionInput.setPadding(new Insets(5,5,5,5));
 
         VBox addTimecardButtonBox = new VBox();
         addTimecardButtonBox.setStyle(cssLayoutTestBorder);
         addTimecardButtonBox.getChildren().addAll(addTimecardButtonLabel, addTimecardButton);
+        addTimecardButtonBox.setPadding(new Insets(5,5,5,5));
         
         // add new timecard form
         newTimecardPane.getChildren().addAll(timeInputH, timeInputM, typeInput, descriptionInput, addTimecardButtonBox); 
@@ -292,12 +305,15 @@ public class TimecardUi extends Application {
         
         redrawTimecards();
         
-        Button projectSummaryButton = new Button("Summary");  
+        Button projectSummaryButton = new Button("Project Summary");  
         projectSummaryButton.setPadding(new Insets(5));
         projectSummaryButton.setOnAction(e->{
             primaryStage.setScene(projectSummaryScene);
             redrawProjectSummary();
         });
+        
+        projectSummaryButton.setMaxWidth(150);
+        projectSummaryButton.setMinWidth(150);
         
         Button logoutButton = new Button("Logout");
         logoutButton.setPadding(new Insets(5));
@@ -306,22 +322,33 @@ public class TimecardUi extends Application {
             primaryStage.setScene(loginScene);
         }); 
         
+        logoutButton.setMaxWidth(150);
+        logoutButton.setMinWidth(150);
+        
         projectTopPane.getChildren().clear();
-//        HBox topNavigation = new HBox();
-//        topNavigation.setPadding(new Insets(10));
-//        topNavigation.getChildren().addAll(projectsListButton);
-             
+        
+        Region spacer04 = new Region();
+        spacer04.setPrefWidth(100);
+        HBox.setHgrow(spacer04, Priority.ALWAYS);
+        
+        Label addTimeLabel = new Label("Timecards");
+        addTimeLabel.setPadding(new Insets(5,5,5,5));
+        addTimeLabel.setMaxWidth(200);
+        addTimeLabel.setMinWidth(200);
+        addTimeLabel.setStyle(cssLayoutWhiteBold);
+        
         HBox topLabel = new HBox(0);
         topLabel.setPadding(new Insets(0));      
         topLabel.setStyle(cssLayoutTopNavigation);
-        topLabel.getChildren().addAll(projectsListButton, projectSummaryButton, logoutButton, project(selectedProject));
+        topLabel.setPadding(new Insets(5,5,5,5));
+        topLabel.getChildren().addAll(addTimeLabel, projectsListButton, projectSummaryButton, spacer04, logoutButton);
 
         VBox addTime = new VBox();
         addTime.setPadding(new Insets(0,0,0,0));
         addTime.getChildren().addAll(newTimecardPane);
         addTime.setStyle(cssLayoutTestBorder);
 
-        projectTopPane.getChildren().addAll(topLabel, addTime);
+        projectTopPane.getChildren().addAll(topLabel, project(selectedProject), addTime);
     }
     
     public void redrawProjectSummary() {
@@ -336,31 +363,47 @@ public class TimecardUi extends Application {
             redrawProject();
         });
         
-        Button projectsListButton02 = new Button("Projects");  
+        buttonTimecards.setMaxWidth(150);
+        buttonTimecards.setMinWidth(150);
+        
+        Button projectsListButton02 = new Button("Projects List");  
         projectsListButton02.setPadding(new Insets(5));
         projectsListButton02.setOnAction(e->{
             primaryStage.setScene(projectsListScene);   
         });
+        
+        projectsListButton02.setMaxWidth(150);
+        projectsListButton02.setMinWidth(150);
         
         Button logoutButton = new Button("Logout");
         logoutButton.setPadding(new Insets(5));
         logoutButton.setOnAction(e->{
             timecardService.logout();
             primaryStage.setScene(loginScene);
-        }); 
+        });
+       
+        logoutButton.setMaxWidth(150);
+        logoutButton.setMinWidth(150);
         
-//        HBox summaryTopLabel = new HBox(0);
-//        summaryTopLabel.setPadding(new Insets(0,0,0,0));
-//        summaryTopLabel.getChildren().addAll(projectsListButton02, buttonTimecards, project(selectedProject)); // project(selectedProject)
+        Label summary = new Label("Project Summary");
+        summary.setPadding(new Insets(5,5,5,5));
+        summary.setMaxWidth(200);
+        summary.setMinWidth(200);
+        summary.setStyle(cssLayoutWhiteBold);
+        
+        Region spacer00 = new Region();
+        spacer00.setPrefWidth(200);
+        HBox.setHgrow(spacer00, Priority.ALWAYS);
 
         HBox topLabel = new HBox(0);
-        topLabel.setPadding(new Insets(0));
-        topLabel.getChildren().addAll(projectsListButton02, buttonTimecards, logoutButton, project(selectedProject));
+        topLabel.setStyle(cssLayoutTopNavigation);
+        topLabel.setPadding(new Insets(5,5,5,5));
+        topLabel.getChildren().addAll(summary, projectsListButton02, buttonTimecards, spacer00, logoutButton);
         
         // job types and total times
         
         VBox summaryPane = new VBox();
-        summaryPane.setPadding(new Insets(10,10,10,10));
+        summaryPane.setPadding(new Insets(5,5,5,5));
 
         Label notselectedTime  = new Label(timecardService.getProjectJobTypeTime(selectedProject.getId(), 0));
         notselectedTime.setMinHeight(0);
@@ -456,13 +499,13 @@ public class TimecardUi extends Application {
         
         summaryPane.getChildren().addAll(notselectedTimeRow, designTimeRow, programmingTimeRow, testingTimeRow, maintenanceTimeRow, totalTimeRow);
         
-        projectSummaryPane.getChildren().addAll(topLabel, summaryPane);
+        projectSummaryPane.getChildren().addAll(topLabel, project(selectedProject), summaryPane);
     }
     
     public Node project (Project project) {
         HBox box = new HBox();
         Label projectName  = new Label(selectedProject.getName());
-        projectName.setMinHeight(1);
+        projectName.setMinHeight(0);
         projectName.setStyle(cssLayoutH2);
         projectName.setPrefWidth(300);
         projectName.setPadding(new Insets(5,5,5,5));
@@ -525,17 +568,19 @@ public class TimecardUi extends Application {
 
         // login scene
         
-        VBox loginPane = new VBox(10);
+        VBox loginPane = new VBox(0);
         HBox inputPane = new HBox(10);
-        loginPane.setPadding(new Insets(10));
-        Label loginLabel = new Label("username");
+        loginPane.setPadding(new Insets(0));
+        inputPane.setPadding(new Insets(5, 5, 5, 5));
+        Label loginLabel = new Label("Username");
         TextField usernameInput = new TextField();
-        
+        usernameInput.setPadding(new Insets(5,5,5,5));
+                
         inputPane.getChildren().addAll(loginLabel, usernameInput);
         Label loginMessage = new Label();
         
-        Button loginButton = new Button("login");
-        Button createButton = new Button("create new user");
+        Button loginButton = new Button("Login");
+        
         loginButton.setOnAction(e->{
             String username = usernameInput.getText();
             if (timecardService.login(username) ){
@@ -546,39 +591,65 @@ public class TimecardUi extends Application {
                 loginMessage.setText("No such user!");
                 loginMessage.setTextFill(Color.RED);
             }      
-        });  
+        });
+        loginButton.setPadding(new Insets(5,5,5,5));
         
+        Button createButton = new Button("Create New User");
         createButton.setOnAction(e->{
             usernameInput.setText("");
             primaryStage.setScene(newUserScene);   
-        });  
+        });
+        createButton.setPadding(new Insets(5,5,5,5));
+        createButton.setMaxWidth(150);
+        createButton.setMinWidth(150);
         
-        loginPane.getChildren().addAll(loginMessage, inputPane, loginButton, createButton);       
+        VBox loginButtons = new VBox(10);
+        loginButtons.setPadding(new Insets(5,5,5,5));
+        loginButtons.getChildren().addAll(loginMessage, inputPane, loginButton); 
         
-        loginScene = new Scene(loginPane, 300, 250);
+        Label topLoginLabel = new Label("Login");
+        topLoginLabel.setPadding(new Insets(5,5,5,5));
+        topLoginLabel.setMaxWidth(200);
+        topLoginLabel.setMinWidth(200);
+        topLoginLabel.setStyle(cssLayoutWhiteBold);
+
+        Region spacer08 = new Region();
+        spacer08.setPrefWidth(400);
+        HBox.setHgrow(spacer08, Priority.ALWAYS);
+        
+        HBox topLoginLabelBox = new HBox();
+        topLoginLabelBox.setStyle(cssLayoutTopNavigation);
+        topLoginLabelBox.setPadding(new Insets(5,5,5,5));
+        topLoginLabelBox.getChildren().addAll(topLoginLabel, spacer08, createButton); 
+        
+        loginPane.getChildren().addAll(topLoginLabelBox, loginButtons);       
+        
+        loginScene = new Scene(loginPane, 750, 250);
                 
         // new createNewUserScene
         
-        VBox newUserPane = new VBox(10);
+        VBox newUserPane = new VBox(5);
+        newUserPane.setPadding(new Insets(0));
         
-        HBox newUsernamePane = new HBox(10);
-        newUsernamePane.setPadding(new Insets(10));
+        HBox newUsernamePane = new HBox(5);
+        newUsernamePane.setPadding(new Insets(5));
+        
         TextField newUsernameInput = new TextField(); 
-        Label newUsernameLabel = new Label("username");
+        Label newUsernameLabel = new Label("Username");
         newUsernameLabel.setPrefWidth(100);
         newUsernamePane.getChildren().addAll(newUsernameLabel, newUsernameInput);
      
-        HBox newNamePane = new HBox(10);
-        newNamePane.setPadding(new Insets(10));
+        HBox newNamePane = new HBox(5);
+        newNamePane.setPadding(new Insets(5));
         TextField newNameInput = new TextField();
-        Label newNameLabel = new Label("name");
+        Label newNameLabel = new Label("Name");
         newNameLabel.setPrefWidth(100);
         newNamePane.getChildren().addAll(newNameLabel, newNameInput);        
         
         Label userCreationMessage = new Label();
         
         Button createNewUserButton = new Button("Create");
-        createNewUserButton.setPadding(new Insets(10));
+        createNewUserButton.setPadding(new Insets(5));
 
         createNewUserButton.setOnAction(e->{
             String username = newUsernameInput.getText();
@@ -596,12 +667,43 @@ public class TimecardUi extends Application {
                 userCreationMessage.setText("username exists!");
                 userCreationMessage.setTextFill(Color.RED);        
             }
- 
-        });  
+        });
         
-        newUserPane.getChildren().addAll(userCreationMessage, newUsernamePane, newNamePane, createNewUserButton); 
+        VBox newUserFormPane = new VBox(5);
+        newUserFormPane.setPadding(new Insets(5));
+        newUserFormPane.getChildren().addAll(newUsernamePane, newNamePane, createNewUserButton);
+        
+        
+        Label newUserlabel = new Label("New User");
+        newUserlabel.setPadding(new Insets(5,5,5,5));
+        newUserlabel.setMaxWidth(200);
+        newUserlabel.setMinWidth(200);
+        newUserlabel.setStyle(cssLayoutWhiteBold);
+        
+        HBox topNewUser = new HBox();
+        topNewUser.setStyle(cssLayoutTopNavigation);
+        topNewUser.setPadding(new Insets(5,5,5,5));
+        
+        Button logoutButton3 = new Button("Back To Login");
+        logoutButton3.setPadding(new Insets(5));
+        logoutButton3.setOnAction(e->{
+            timecardService.logout();
+            primaryStage.setScene(loginScene);
+        });
+        
+        logoutButton3.setMaxWidth(150);
+        logoutButton3.setMinWidth(150);
+
+        Region spacer07 = new Region();
+        spacer07.setPrefWidth(500);
+        HBox.setHgrow(spacer07, Priority.ALWAYS);
+        
+        topNewUser.getChildren().addAll(newUserlabel, spacer07, logoutButton3); 
+        
+        
+        newUserPane.getChildren().addAll(topNewUser, userCreationMessage, newUserFormPane); 
        
-        newUserScene = new Scene(newUserPane, 300, 250);  
+        newUserScene = new Scene(newUserPane, 750, 250);  
 
         
         // Projects list scene
@@ -609,7 +711,7 @@ public class TimecardUi extends Application {
         HBox projectsTopPane = new HBox(0);
         //VBox projectsBottomPane = new VBox(0);
 
-        // List active projects here
+        // List projects here
         
         ScrollPane projectScollbar = new ScrollPane();
         BorderPane projectsPane = new BorderPane(projectScollbar);
@@ -629,12 +731,8 @@ public class TimecardUi extends Application {
             primaryStage.setScene(addProjectScene);   
         });
         
-        Button logoutButton = new Button("Logout");
-        logoutButton.setPadding(new Insets(5));
-        logoutButton.setOnAction(e->{
-            timecardService.logout();
-            primaryStage.setScene(loginScene);
-        });  
+        addProjectsButton.setMaxWidth(150);
+        addProjectsButton.setMinWidth(150);
         
         Button logoutButton2 = new Button("Logout");
         logoutButton2.setPadding(new Insets(5));
@@ -643,7 +741,23 @@ public class TimecardUi extends Application {
             primaryStage.setScene(loginScene);
         });
         
-        projectsTopPane.getChildren().addAll(addProjectsButton, logoutButton2);  // 
+        logoutButton2.setMaxWidth(150);
+        logoutButton2.setMinWidth(150);
+        
+        projectsTopPane.setStyle(cssLayoutTopNavigation);
+        projectsTopPane.setPadding(new Insets(5,5,5,5));
+        
+        Region spacer01 = new Region();
+        spacer01.setPrefWidth(500);
+        HBox.setHgrow(spacer01, Priority.ALWAYS);
+        
+        Label projectsListlabel = new Label("Projects List");
+        projectsListlabel.setPadding(new Insets(5,5,5,5));
+        projectsListlabel.setMaxWidth(200);
+        projectsListlabel.setMinWidth(200);
+        projectsListlabel.setStyle(cssLayoutWhiteBold);
+        
+        projectsTopPane.getChildren().addAll(projectsListlabel, addProjectsButton, spacer01, logoutButton2);  // 
         //projectsBottomPane.getChildren().addAll();
         
         projectsListScene = new Scene(projectsPane, 750, 250);
@@ -662,15 +776,16 @@ public class TimecardUi extends Application {
         }
         
         Label projectLabel  = new Label(projectName); //selectedProject.getName()
-        projectLabel.setMinHeight(1);
         
         projectLabel.setStyle(cssLayoutH2);
         
-        Button projectsListButton = new Button("Projects");  
+        Button projectsListButton = new Button("Projects List");  
         projectsListButton.setPadding(new Insets(5));
         projectsListButton.setOnAction(e->{
             primaryStage.setScene(projectsListScene);   
         });
+        projectsListButton.setMaxWidth(150);
+        projectsListButton.setMinWidth(150);
         
         // List timecards
         
@@ -679,12 +794,27 @@ public class TimecardUi extends Application {
         timecardNodes = new VBox(0);
         timecardNodes.setMaxWidth(700);
         timecardNodes.setMinWidth(700);
-     
+        
+        Region spacer06 = new Region();
+        spacer06.setPrefWidth(400);
+        VBox.setVgrow(spacer06, Priority.ALWAYS);
         
         projectTimecardScollbar.setContent(timecardNodes);
+
+
         
-        VBox projectTopPaneTimecards = new VBox(1);
-        projectTopPaneTimecards.getChildren().addAll(projectsListButton, logoutButton, projectLabel);
+        Button logoutButton = new Button("Logout");
+        logoutButton.setPadding(new Insets(5));
+        logoutButton.setOnAction(e->{
+            timecardService.logout();
+            primaryStage.setScene(loginScene);
+        });  
+       
+        logoutButton.setMaxWidth(150);
+        logoutButton.setMinWidth(150);
+        
+        VBox projectTopPaneTimecards = new VBox(0);
+        projectTopPaneTimecards.getChildren().addAll(projectsListButton, spacer06, logoutButton);
         
         projectTopPane.getChildren().addAll(projectTopPaneTimecards);
         projectPane.setTop(projectTopPane);
@@ -696,9 +826,6 @@ public class TimecardUi extends Application {
         
         VBox newProjectPane = new VBox(0);
         
-//        HBox newProject = new HBox(0);
-//        newProject.setPadding(new Insets(0));
-              
         TextField newProjectNameInput = new TextField();
         newProjectNameInput.setPrefWidth(240);
         Label newProjectNameLabel = new Label("Project Name");
@@ -747,6 +874,8 @@ public class TimecardUi extends Application {
         
         Button addProjectButton = new Button("Add Project");
         addProjectButton.setPadding(new Insets(5));
+        addProjectButton.setMaxWidth(150);
+        addProjectButton.setMinWidth(150);
 
         addProjectButton.setOnAction(e->{
             String name = newProjectNameInput.getText();
@@ -762,13 +891,24 @@ public class TimecardUi extends Application {
             }
         });
         
+        Region spacer02 = new Region();
+        spacer02.setPrefWidth(500);
+        VBox.setVgrow(spacer02, Priority.ALWAYS);
+        
+        Label addProjectlabel = new Label("Add Project");
+        addProjectlabel.setPadding(new Insets(5,5,5,5));
+        addProjectlabel.setMaxWidth(200);
+        addProjectlabel.setMinWidth(200);
+        addProjectlabel.setStyle(cssLayoutWhiteBold);
+        
         HBox topNavigation = new HBox();
-        topNavigation.setPadding(new Insets(0));
-        topNavigation.getChildren().addAll(projectsListButton, logoutButton);
+        topNavigation.setStyle(cssLayoutTopNavigation);
+        topNavigation.setPadding(new Insets(5,5,5,5));
+        topNavigation.getChildren().addAll(addProjectlabel, projectsListButton, spacer02, logoutButton);
         
         newProjectPane.getChildren().addAll(topNavigation, projectInfo00, addProjectButton); 
        
-        addProjectScene = new Scene(newProjectPane, 600, 550);               
+        addProjectScene = new Scene(newProjectPane, 750, 250);               
  
         
         // Project summary
@@ -782,15 +922,19 @@ public class TimecardUi extends Application {
             redrawProject();
         });
         
-        Button projectsListButton02 = new Button("Projects");  
+        Button projectsListButton02 = new Button("Projects List");  
         projectsListButton02.setPadding(new Insets(5));
         projectsListButton02.setOnAction(e->{
             primaryStage.setScene(projectsListScene);   
         });
         
+        Region spacer03 = new Region();
+        spacer03.setPrefWidth(400);
+        HBox.setHgrow(spacer03, Priority.ALWAYS);
+        
         HBox summaryTopLabel = new HBox(0);
         summaryTopLabel.setPadding(new Insets(0,0,0,0));
-        summaryTopLabel.getChildren().addAll(projectsListButton02, buttonTimecards); // project(selectedProject)
+        summaryTopLabel.getChildren().addAll(projectsListButton02, spacer03, buttonTimecards); // project(selectedProject)
         
         if(selectedProject!=null){
             System.out.println("oikeesti");

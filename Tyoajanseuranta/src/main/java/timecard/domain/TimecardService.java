@@ -53,6 +53,7 @@ public class TimecardService {
     * Uuden työajan lisääminen
     *
     */
+    
     public boolean addTimecard(int projectId, int time, int type, String description, String username) {
         
         Timecard timecard = new Timecard(projectId, time, type, description, username);
@@ -103,6 +104,7 @@ public class TimecardService {
         for (Timecard t : timecards) {
             time += t.getTime();
         }
+        
         int hours = time / 60;
         int minutes = time % 60;
         String timeString = Integer.toString(hours) + "h " + Integer.toString(minutes) + "min";
