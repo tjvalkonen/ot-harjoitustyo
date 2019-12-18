@@ -70,21 +70,46 @@ public class TimecardService {
             .filter(t-> t.getProjectId() == projectId)
             .collect(Collectors.toList());
     }
+
+    /**
+    * Projektin tietojen hakeminen
+    *
+    */  
     
-    public int getProjectTotalTime(int projectId) {          
+    public String getProjectTotalTime(int projectId) {          
         List<Timecard> timecards = timecardDao.getAll()
             .stream()
             .filter(t-> t.getProjectId() == projectId)
             .collect(Collectors.toList());
         int time = 0;
-        for(Timecard t : timecards){
+        for (Timecard t : timecards) {
             time += t.getTime();
         }
-        return time;
         
+        int hours = time / 60;
+        int minutes = time % 60;
+        String timeString = Integer.toString(hours) + "h " + Integer.toString(minutes) + "min";
         
+        return timeString;
     }
 
+    public String getProjectJobTypeTime(int projectId, int type) {          
+        List<Timecard> timecards = timecardDao.getAll()
+            .stream()
+            .filter(t-> t.getProjectId() == projectId)
+            .filter(t-> t.getType() == type)
+            .collect(Collectors.toList());
+        int time = 0;
+        for (Timecard t : timecards) {
+            time += t.getTime();
+        }
+        int hours = time / 60;
+        int minutes = time % 60;
+        String timeString = Integer.toString(hours) + "h " + Integer.toString(minutes) + "min";
+        
+        return timeString;
+    }
+        
     /**
     * sisäänkirjautuminen
     * 
