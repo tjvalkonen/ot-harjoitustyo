@@ -28,9 +28,9 @@ Sovellus käynnistyy kirjautumisnäkymään (Login):
 
 Sovellukseen voi kirjautua olemassa olevalla tunnuksella, kirjoittamalla se tekstikenttään ja painamalla _Login_.
 
-## Uuden käyttäjän luominen
-
 Kirjautumisnäkymästä pääsee luomaan uuden tunnuksen painamalla _Create New User_ nappia.
+
+## Uuden käyttäjän luominen
 
 Uuden käyttäjätunnuksen luontinäkymässä (New User) uuden käyttäjän tiedot syöteään kenttin ja painetaan _Create_
 
@@ -51,7 +51,7 @@ Uuden projektin lisäämisnäkymään (Add Project) pääsee painamalla _Add Pro
 
 ## Uuden projektin lisääminen
 
-Uuden projektin lisäämisnäkymässä (Add Project) nimi syötetään nimikenttään ja projektin arvioitu työaika (Estimated Time To Complete) aika kenttiin. Arvioidun ajan syötäminen ei ole pakollista. uusi projekti lisätään painamalla _Add Project_ nappia. Lisäämisen jälkeen näkymä siiryy projektit listaan (Projects List). Projektit listaan pääsee myös lisäämättä uutta projektia painamalla _Projects List_ nappia.
+Uuden projektin lisäämisnäkymässä (Add Project) projektin nimi syötetään nimikenttään ja projektin arvioitu työaika (Estimated Time To Complete) aika kenttiin. Arvioidun ajan syötäminen ei ole pakollista. uusi projekti lisätään painamalla _Add Project_ nappia. Lisäämisen jälkeen näkymä siiryy projektit listaan (Projects List). Projektit listaan pääsee myös lisäämättä uutta projektia painamalla _Projects List_ nappia.
 
 <img src="https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/kuvat/addproject.png">
 
@@ -67,5 +67,5 @@ Projektin yhteenvetonäkymässä (Project Summary) on listattuna projektiin merk
 
 <img src="https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/kuvat/projectsummary.png">
 
-Oikeassa ylänurjassa on _Logout_ nappi, jota painamalla käyttäjä kirjautuu ulos sovelluksesta ja sovellus palaa takaisin kirjaantumisnäkymään.
+Oikeassa ylänurkassa on _Logout_ nappi, jota painamalla käyttäjä kirjautuu ulos sovelluksesta ja sovellus palaa takaisin kirjaantumisnäkymään.
 
