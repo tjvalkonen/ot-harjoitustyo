@@ -2,11 +2,13 @@
 
 ## Dokumentaatio
 
-[vaatimusmaarittely.md](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
+[Käyttöohje](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/kayttoohje.md)
 
-[arkkitehtuuri.md](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
+[Vaatimusmaarittely](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/vaatimusmaarittely.md)
 
-[tyoaikakirjanpito.md](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
+[Arkkitehtuuri](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
+
+[Työaikakirjanpito](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
 
 [Release v0.1](https://github.com/tjvalkonen/ot-harjoitustyo/releases/tag/v0.1)
 

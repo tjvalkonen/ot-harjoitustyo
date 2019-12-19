@@ -46,9 +46,13 @@ public class TimecardService {
     
     public List<Project> getProjects() {
           
-        return projectDao.getAll()
+        List<Project> projects = projectDao.getAll()
             .stream()
             .collect(Collectors.toList());
+        
+        Collections.reverse(projects);
+        
+        return projects;
     }
     
     /**
