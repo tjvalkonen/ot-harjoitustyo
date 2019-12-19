@@ -103,6 +103,7 @@ public class TimecardUi extends Application {
     public Node createProjectNode(Project project) {
         HBox box = new HBox(0);
         box.setStyle(cssLayoutBorder01);
+        //box.setPrefWidth(748);
         Label label  = new Label(project.getName());
         label.setStyle(cssLayoutH2);
         label.setMinHeight(0);
@@ -119,6 +120,9 @@ public class TimecardUi extends Application {
         HBox.setHgrow(spacer05, Priority.ALWAYS);
         box.setPadding(new Insets(5,5,5,5));
         
+        box.setMaxWidth(730);
+        box.setMinWidth(730);
+        
         box.getChildren().addAll(label, spacer05, button);
         return box;
     }
@@ -133,7 +137,7 @@ public class TimecardUi extends Application {
         String timeSting = Integer.toString(hours) + "h " + Integer.toString(minutes) + "min";
 
         Label time  = new Label(timeSting);
-        time.setPrefWidth(125);        
+        time.setPrefWidth(144);        
         time.setStyle(cssLayoutTestBorder);
         time.setPadding(new Insets(5,5,5,5));
         
@@ -152,13 +156,13 @@ public class TimecardUi extends Application {
             type.setText("Maintenance");
         }
         
-        type.setPrefWidth(152);
+        type.setPrefWidth(162);
         type.setStyle(cssLayoutTestBorder);
         type.setPadding(new Insets(5,5,5,5));
         
         Label description  = new Label(timecard.getDescription());
         description.setPadding(new Insets(5,5,5,5));
-        description.setPrefWidth(255);
+        description.setPrefWidth(262);
         description.setStyle(cssLayoutTestBorder);
                 
         Label username  = new Label(timecard.getUsername());
@@ -181,6 +185,7 @@ public class TimecardUi extends Application {
         timecardNodes.getChildren().clear();
         
         List<Timecard> timecards = timecardService.getTimecards(selectedProject.getId());
+        
         timecards.forEach(timecard->{
             timecardNodes.getChildren().add(createTimecardNode(timecard));
         });
@@ -236,7 +241,8 @@ public class TimecardUi extends Application {
         TextField newTimecardDescriptionInput = new TextField(); 
         newTimecardDescriptionInput.setPrefWidth(250);
 
-        //Label timecardCreationMessage = new Label();
+        Label timecardCreationMessage = new Label("");
+        timecardCreationMessage.setPadding(new Insets(5));
         
         Label addTimecardButtonLabel = new Label(""); 
         
@@ -244,32 +250,60 @@ public class TimecardUi extends Application {
         addTimecardButton.setPadding(new Insets(5));
 
         addTimecardButton.setOnAction(e->{
-                       
-            int time = Integer.parseInt(newTimecardHoursInput.getText())*60+Integer.parseInt(newTimecardMinutesInput.getText());
-            int type = 0;
             
-            String value = (String) jobType.getValue();
-            if (value == null){
-               type = 0;
-            } else if (value.contentEquals("Design")) {
-                type = 1;
-            } else if (value.contentEquals("Programming")) {
-                type = 2;
-            } else if (value.contentEquals("Testing")) {
-                type = 3;
-            } else if (value.contentEquals("Maintenance")) {
-                type = 4;
-            }          
+
             
-            String description = newTimecardDescriptionInput.getText();        
+            // field validations
             
-            if (timecardService.addTimecard(selectedProject.getId(), time, type, description, timecardService.getLoggedUser().getName())){
-//              Success!
-                redrawProject();
+            if (newTimecardHoursInput.getText().isEmpty() && newTimecardMinutesInput.getText().isEmpty()) {
+                timecardCreationMessage.setText("Time is empty!");
+            } else if (!newTimecardHoursInput.getText().isEmpty() && !newTimecardHoursInput.getText().matches("[0-9]*")) {
+                timecardCreationMessage.setText("Time input numbers only!");            
+            } else if (!newTimecardMinutesInput.getText().isEmpty() && !newTimecardMinutesInput.getText().matches("[0-9]*")) {
+                timecardCreationMessage.setText("Time input numbers only!");  
+            } else if (!newTimecardMinutesInput.getText().isEmpty() && Integer.parseInt(newTimecardMinutesInput.getText()) > 60) {
+                timecardCreationMessage.setText("Minutes is too much!");             
+            } else if (newTimecardDescriptionInput.getText().length() > 30) {
+                timecardCreationMessage.setText("Description is too long. Only 30 characters!");  
             } else {
+                
+                int timecardHoursMins = 0;
+                int timecardMins = 0;
+                
+                if (!newTimecardMinutesInput.getText().isEmpty()) {
+                    timecardMins = Integer.parseInt(newTimecardMinutesInput.getText());
+                }
+                
+                if (!newTimecardHoursInput.getText().isEmpty()) {
+                    timecardHoursMins = Integer.parseInt(newTimecardHoursInput.getText())*60;
+                }
+
+                int time = timecardHoursMins + timecardMins;
+                int type = 0;
+            
+                String value = (String) jobType.getValue();
+                if (value == null){
+                    type = 0;
+                } else if (value.contentEquals("Design")) {
+                    type = 1;
+                } else if (value.contentEquals("Programming")) {
+                    type = 2;
+                } else if (value.contentEquals("Testing")) {
+                    type = 3;
+                } else if (value.contentEquals("Maintenance")) {
+                    type = 4;
+                }          
+            
+                String description = newTimecardDescriptionInput.getText();        
+            
+                if (timecardService.addTimecard(selectedProject.getId(), time, type, description, timecardService.getLoggedUser().getName())){                  
+                    redrawProject();
+                    //timecardCreationMessage.setText("Timecard added!");
+                } else {
 //                if something went wrong  
+                }  
             }
-        });
+         });
         
         VBox timeInputH = new VBox();
         timeInputH.setStyle(cssLayoutTestBorder);
@@ -294,13 +328,14 @@ public class TimecardUi extends Application {
         VBox addTimecardButtonBox = new VBox();
         addTimecardButtonBox.setStyle(cssLayoutTestBorder);
         addTimecardButtonBox.getChildren().addAll(addTimecardButtonLabel, addTimecardButton);
+        addTimecardButtonBox.setPrefWidth(150);
         addTimecardButtonBox.setPadding(new Insets(5,5,5,5));
         
         // add new timecard form
         newTimecardPane.getChildren().addAll(timeInputH, timeInputM, typeInput, descriptionInput, addTimecardButtonBox); 
         
-        newTimecardPane.setMaxWidth(700);
-        newTimecardPane.setMinWidth(700);
+        newTimecardPane.setMaxWidth(748);
+        newTimecardPane.setMinWidth(748);
         newTimecardPane.setStyle(cssLayoutBackgroundLightGray);
         
         redrawTimecards();
@@ -347,8 +382,11 @@ public class TimecardUi extends Application {
         addTime.setPadding(new Insets(0,0,0,0));
         addTime.getChildren().addAll(newTimecardPane);
         addTime.setStyle(cssLayoutTestBorder);
+        
+        HBox projectName = new HBox();
+        projectName.getChildren().addAll(project(selectedProject), timecardCreationMessage);
 
-        projectTopPane.getChildren().addAll(topLabel, project(selectedProject), addTime);
+        projectTopPane.getChildren().addAll(topLabel, projectName, addTime);
     }
     
     public void redrawProjectSummary() {
@@ -497,7 +535,24 @@ public class TimecardUi extends Application {
         totalTimeRow.setPrefWidth(100);
         totalTimeRow.getChildren().addAll(totalTimeTitle, totalTime);
         
-        summaryPane.getChildren().addAll(notselectedTimeRow, designTimeRow, programmingTimeRow, testingTimeRow, maintenanceTimeRow, totalTimeRow);
+        Label etcTime  = new Label(selectedProject.getEtcString());
+        //etcTime.setStyle(cssLayoutBold);
+        etcTime.setMinHeight(0);
+        etcTime.setPrefWidth(100);
+        etcTime.setPadding(new Insets(0));
+        
+        Label etcTimeTitle  = new Label("ETC:");
+        //etcTimeTitle.setStyle(cssLayoutBold);
+        etcTimeTitle.setMinHeight(0);
+        etcTimeTitle.setPrefWidth(100);
+        
+        HBox etcTimeRow = new HBox();
+        etcTimeRow.setMinHeight(0);
+        etcTimeRow.setPrefWidth(100);
+        etcTimeRow.getChildren().addAll(etcTimeTitle, etcTime);
+        etcTimeRow.setPadding(new Insets(15,0,0,0));
+        
+        summaryPane.getChildren().addAll(notselectedTimeRow, designTimeRow, programmingTimeRow, testingTimeRow, maintenanceTimeRow, totalTimeRow, etcTimeRow);
         
         projectSummaryPane.getChildren().addAll(topLabel, project(selectedProject), summaryPane);
     }
@@ -510,58 +565,14 @@ public class TimecardUi extends Application {
         projectName.setPrefWidth(300);
         projectName.setPadding(new Insets(5,5,5,5));
 
-//        int t = timecardService.getProjectTotalTime(selectedProject.getId());
-//        int hours = t / 60;
-//        int minutes = t % 60;
-//        String timeSting = Integer.toString(hours) + "h " + Integer.toString(minutes) + "min";        
-        
-//        Label projectTotalTime = new Label(timeSting);
-//
-//        Label projectTotalTimeTitle = new Label("Total time");
-//        VBox projectTotalTimeBox = new VBox();       
-//        projectTotalTimeBox.setStyle(cssLayoutTestBorder);
-//        projectTotalTimeBox.getChildren().addAll(projectTotalTimeTitle ,projectTotalTime);
-//        projectTotalTimeBox.setPrefWidth(120);
-
-//        int etc = selectedProject.getEtc();
-//        int etcHours = etc / 60;
-//        int etcMinutes = etc % 60;
-//        String etcSting = Integer.toString(etcHours) + "h " + Integer.toString(etcMinutes) + "min";       
-//        Label projectEtc = new Label(etcSting);
-//        
-//        Label projectEtcTitle = new Label("ETC");
-//        VBox projectEtcBox = new VBox();       
-//        projectEtcBox.setStyle(cssLayoutTestBorder);
-//        projectEtcBox.getChildren().addAll(projectEtcTitle ,projectEtc);
-//        projectEtcBox.setPrefWidth(120);
-
         box.setPadding(new Insets(0,0,0,0));
-        box.getChildren().addAll(projectName); // projectTotalTimeBox, projectEtcBox
+        box.getChildren().addAll(projectName);
         
         // Timecard
         
         return box;       
     }
-//    
-//    public Node timecard (Timecard timecard) {
-//        HBox box = new HBox(1);
-//        Label time  = new Label(Integer.toString(timecard.getTime()));
-//        
-//        Label type  = new Label(Integer.toString(timecard.getType()));
-//        Label description  = new Label(timecard.getDescription());
-//        Label username  = new Label(timecard.getUsername());
-//        time.setMinHeight(1);
-//        type.setMinHeight(1);
-//        description.setMinHeight(1);
-//        username.setMinHeight(1);
-//        Region spacer = new Region();
-//        
-//        box.setPadding(new Insets(0,1,0,1));
-//        box.getChildren().addAll(time, type, description, username, spacer);
-//        
-//        return box;     
-//    }
-//            
+      
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;        
@@ -576,7 +587,7 @@ public class TimecardUi extends Application {
         TextField usernameInput = new TextField();
         usernameInput.setPadding(new Insets(5,5,5,5));
                 
-        inputPane.getChildren().addAll(loginLabel, usernameInput);
+        
         Label loginMessage = new Label();
         
         Button loginButton = new Button("Login");
@@ -603,9 +614,11 @@ public class TimecardUi extends Application {
         createButton.setMaxWidth(150);
         createButton.setMinWidth(150);
         
+        inputPane.getChildren().addAll(loginLabel, usernameInput, loginButton);
+        
         VBox loginButtons = new VBox(10);
         loginButtons.setPadding(new Insets(5,5,5,5));
-        loginButtons.getChildren().addAll(loginMessage, inputPane, loginButton); 
+        loginButtons.getChildren().addAll(loginMessage, inputPane); 
         
         Label topLoginLabel = new Label("Login");
         topLoginLabel.setPadding(new Insets(5,5,5,5));
@@ -775,7 +788,7 @@ public class TimecardUi extends Application {
             projectName = selectedProject.getName(); 
         }
         
-        Label projectLabel  = new Label(projectName); //selectedProject.getName()
+        Label projectLabel  = new Label(projectName);
         
         projectLabel.setStyle(cssLayoutH2);
         
@@ -801,8 +814,6 @@ public class TimecardUi extends Application {
         
         projectTimecardScollbar.setContent(timecardNodes);
 
-
-        
         Button logoutButton = new Button("Logout");
         logoutButton.setPadding(new Insets(5));
         logoutButton.setOnAction(e->{
@@ -828,12 +839,18 @@ public class TimecardUi extends Application {
         
         TextField newProjectNameInput = new TextField();
         newProjectNameInput.setPrefWidth(240);
+        newProjectNameInput.setPadding(new Insets(5));
         Label newProjectNameLabel = new Label("Project Name");
         newProjectNameLabel.setPrefWidth(240);
+        newProjectNameLabel.setPadding(new Insets(0));
 
         VBox nameInput = new VBox();
-        nameInput.setStyle(cssLayoutTestBorder);
+        //nameInput.setStyle(cssLayoutTestBorder);
         nameInput.getChildren().addAll(newProjectNameLabel, newProjectNameInput);
+        
+        Label newEtcLabel = new Label("Estimated Time To Complete (ETC)");
+        newEtcLabel.setPadding(new Insets(15,0,5,0));
+        newEtcLabel.setPrefWidth(400);
         
         Label newEtcDaysLabel = new Label("Days(=8h)");
         newEtcDaysLabel.setPrefWidth(80);
@@ -843,53 +860,97 @@ public class TimecardUi extends Application {
         newEtcMinutesLabel.setPrefWidth(80);
         TextField newEtcDaysInput = new TextField();  
         newEtcDaysInput.setPrefWidth(80);
+        newEtcDaysInput.setPadding(new Insets(5));
         TextField newEtcHoursInput = new TextField();  
         newEtcHoursInput.setPrefWidth(80);
+        newEtcHoursInput.setPadding(new Insets(5));
         TextField newEtcMinutesInput = new TextField();  
         newEtcMinutesInput.setPrefWidth(80);
+        newEtcMinutesInput.setPadding(new Insets(5));
 
         VBox etcInputD = new VBox();
-        etcInputD.setStyle(cssLayoutTestBorder);
+        //etcInputD.setStyle(cssLayoutTestBorder);
         etcInputD.getChildren().addAll(newEtcDaysLabel, newEtcDaysInput);
         
         VBox etcInputH = new VBox();
-        etcInputH.setStyle(cssLayoutTestBorder);
+        //etcInputH.setStyle(cssLayoutTestBorder);
         etcInputH.getChildren().addAll(newEtcHoursLabel, newEtcHoursInput);
         
         VBox etcInputM = new VBox();
-        etcInputM.setStyle(cssLayoutTestBorder);
+        //etcInputM.setStyle(cssLayoutTestBorder);
         etcInputM.getChildren().addAll(newEtcMinutesLabel, newEtcMinutesInput);
 
         HBox projectInfo01 = new HBox(0);
         projectInfo01.setPadding(new Insets(0));
         projectInfo01.getChildren().addAll(etcInputD, etcInputH, etcInputM);
         
-        // Label projectCreationMessage = new Label();
+        Label projectCreationMessage = new Label("");
+        projectCreationMessage.setPadding(new Insets(5,5,5,5));
         
         // newProject.getChildren().addAll(nameInput, projectInfo01);
         
         VBox projectInfo00 = new VBox();
-        projectInfo00.setStyle(cssLayoutTestBorder);
-        projectInfo00.getChildren().addAll(nameInput, projectInfo01);
+        //projectInfo00.setStyle(cssLayoutTestBorder);
+        projectInfo00.getChildren().addAll(nameInput, newEtcLabel, projectInfo01);
+        projectInfo00.setPrefWidth(400);
+        projectInfo00.setMaxWidth(400);
+        projectInfo00.setMinWidth(400);
+        projectInfo00.setPadding(new Insets(5,5,5,5));
         
         Button addProjectButton = new Button("Add Project");
         addProjectButton.setPadding(new Insets(5));
         addProjectButton.setMaxWidth(150);
         addProjectButton.setMinWidth(150);
 
+        int days = 0;
+        
         addProjectButton.setOnAction(e->{
-            String name = newProjectNameInput.getText();
-            int etc = Integer.parseInt(newEtcDaysInput.getText())*8*60+
-                    Integer.parseInt(newEtcHoursInput.getText())*60+
-                    Integer.parseInt(newEtcMinutesInput.getText());
-            if (timecardService.addProject(name, etc)){
-//                Success!
-                primaryStage.setScene(projectsListScene);
-                redrawProjectlist();
+            if (newProjectNameInput.getText().isEmpty()) {
+                projectCreationMessage.setText("No project name!");
+            } else if (!newEtcDaysInput.getText().isEmpty() && !newEtcDaysInput.getText().matches("[0-9]*")) {
+                projectCreationMessage.setText("Time input numbers only!"); 
+            } else if (!newEtcHoursInput.getText().isEmpty() && !newEtcHoursInput.getText().matches("[0-9]*")) {
+                projectCreationMessage.setText("Time input numbers only!");            
+            } else if (!newEtcMinutesInput.getText().isEmpty() && !newEtcMinutesInput.getText().matches("[0-9]*")) {
+                projectCreationMessage.setText("Time input numbers only!");  
+            } else if (!newEtcMinutesInput.getText().isEmpty() && Integer.parseInt(newEtcMinutesInput.getText()) > 60) {
+                projectCreationMessage.setText("Minutes is too much!");             
+            } else if (newProjectNameInput.getText().length() > 30) {
+                projectCreationMessage.setText("project name is too long. Only 30 characters!");  
             } else {
+                String name = newProjectNameInput.getText();
+                
+                int etcDaysMins = 0;
+                int etcHoursMins = 0;
+                int etcMins = 0;
+                
+                if (!newEtcDaysInput.getText().isEmpty()) {
+                    etcDaysMins = Integer.parseInt(newEtcDaysInput.getText())*8*60;
+                }
+                
+                if (!newEtcHoursInput.getText().isEmpty()) {
+                    etcHoursMins = Integer.parseInt(newEtcHoursInput.getText())*60;
+                }
+                
+                if (!newEtcMinutesInput.getText().isEmpty()) {
+                    etcMins = Integer.parseInt(newEtcMinutesInput.getText());
+                }
+                
+                int etc = etcDaysMins + etcHoursMins + etcMins;
+                
+                if (timecardService.addProject(name, etc)){
+//                Success!
+                    primaryStage.setScene(projectsListScene);
+                    redrawProjectlist();
+                } else {
 //                if something went wrong  
+                }
             }
         });
+        
+        HBox buttonArea = new HBox();
+        buttonArea.setPadding(new Insets(5));
+        buttonArea.getChildren().addAll(addProjectButton);
         
         Region spacer02 = new Region();
         spacer02.setPrefWidth(500);
@@ -906,7 +967,7 @@ public class TimecardUi extends Application {
         topNavigation.setPadding(new Insets(5,5,5,5));
         topNavigation.getChildren().addAll(addProjectlabel, projectsListButton, spacer02, logoutButton);
         
-        newProjectPane.getChildren().addAll(topNavigation, projectInfo00, addProjectButton); 
+        newProjectPane.getChildren().addAll(topNavigation, projectCreationMessage, projectInfo00, buttonArea); 
        
         addProjectScene = new Scene(newProjectPane, 750, 250);               
  
@@ -934,10 +995,9 @@ public class TimecardUi extends Application {
         
         HBox summaryTopLabel = new HBox(0);
         summaryTopLabel.setPadding(new Insets(0,0,0,0));
-        summaryTopLabel.getChildren().addAll(projectsListButton02, spacer03, buttonTimecards); // project(selectedProject)
+        summaryTopLabel.getChildren().addAll(projectsListButton02, spacer03, buttonTimecards);
         
         if(selectedProject!=null){
-            System.out.println("oikeesti");
             projectSummaryPane.getChildren().addAll(summaryTopLabel, project(selectedProject));
         } else {
             projectSummaryPane.getChildren().addAll(summaryTopLabel);

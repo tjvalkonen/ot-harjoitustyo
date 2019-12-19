@@ -1,5 +1,6 @@
 package timecard.domain;
 
+import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ public class TimecardService {
     * Uuden projektin lisääminen
     *
     * @param   name   projektin nimi
+    * @param   etc   projektin arvioitu kokonaistyöaika
     */
     
     public boolean addProject(String name, int etc) {
@@ -66,10 +68,14 @@ public class TimecardService {
     }
     
     public List<Timecard> getTimecards(int projectId) {          
-        return timecardDao.getAll()
+        List<Timecard> timecards = timecardDao.getAll()
             .stream()
             .filter(t-> t.getProjectId() == projectId)
             .collect(Collectors.toList());
+        // ArrayUtils.reverse(timecards);
+        Collections.reverse(timecards);
+        
+        return timecards;
     }
 
     /**
