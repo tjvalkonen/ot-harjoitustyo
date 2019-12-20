@@ -32,7 +32,7 @@ Tehty  - valittuun aktiiviseen projektiin voi syöttää työaikoja
 
 Tehty - käyttäjä voi lisätä uuden projektin
 
-- käyttäjä voi kirjautua ulos järjestelmästä
+Tehty - käyttäjä voi kirjautua ulos järjestelmästä
 
 - pääkäyttäjä (ehkä muutkin) pääsee näkemään kaikkien käyttäjien työajat
 
