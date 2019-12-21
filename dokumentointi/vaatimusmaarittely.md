@@ -2,45 +2,44 @@
 
 ## Sovelluksen tarkoitus
 
-Sovelluksen avulla pidetään kirjaa projekteihin käytetystä työajasta. Tarkoituksena on seurata projektin budjetin ja alustavien arvioiden suhteen toteutunutta työmäärää. Jatkossa sovellus tuottaa parempia arvioita eri tyyppisten projektien suunnitteluun ja budjetointiin. Sovellusta on mahdollista käyttää useamman rekisteröityneen käyttäjän, joilla kaikilla on oma työajan merkintänsä.
+Sovelluksen avulla pidetään kirjaa projekteihin käytetystä työajasta. Tarkoituksena on seurata projektin budjetin ja alustavien arvioiden suhteen toteutunutta työmäärää. Jatkossa sovellus tuottaa parempia arvioita eri tyyppisten projektien suunnitteluun ja budjetointiin. Sovellusta on mahdollista käyttää useamman rekisteröityneen käyttäjän.
 
 ## Käyttäjät
 
-Sovelluksella on alussa yksi normaali käyttäjätyyppi. Tunnusten hallintaan ja ylläpitoon tehdään pääkäyttäjä.
+Sovelluksella on yksi käyttäjätyyppi.
 
 ## Käyttöliittymäluonnos
 
-Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin projekti sovelluksessa jo olevista projekteista. Valittuun projektiin voi syöttää työaikoja käyttäjäkohtaisesti. Työaikoja syötettäessä valitaan myös työn tyyppi. Työn tyyppejä voi lisätä ja muokata erikseen ylläpidon näkymästä. Työaikaa syötettäessä voidaan lisätä lyhyt tekstimuotoinen kuvaus työstä. Päivämäärän voi myös valita tehdylle työlle.
+Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin projekti sovelluksessa jo olevista projekteista. Valittuun projektiin voi syöttää työaikoja käyttäjäkohtaisesti. Työaikoja syötettäessä valitaan myös työn tyyppi. Työn tyyppejä voi lisätä ja muokata erikseen ylläpidon näkymästä. Työaikaa syötettäessä voidaan lisätä lyhyt tekstimuotoinen kuvaus työstä. 
 
 ## Perusversion tarjoama toiminnallisuus
 
 ### Ennen kirjautumista
 
-Tehty - käyttäjä voi luoda järjestelmään käyttäjätunnuksen
-Tehty  - käyttäjätunnuksen täytyy olla uniikki ja pituudeltaan vähintään 3 merkkiä
-
-Tehty - käyttäjä voi kirjautua järjestelmään
-Tehty  - kirjautuminen onnistuu syötettäessä olemassaoleva käyttäjätunnus kirjautumislomakkeelle
-Tehty  - jos käyttäjää ei olemassa, ilmoittaa järjestelmä tästä
+- käyttäjä voi luoda järjestelmään käyttäjätunnuksen
+- käyttäjätunnuksen täytyy olla uniikki ja pituudeltaan vähintään 3 merkkiä
+- käyttäjä voi kirjautua järjestelmään
+- kirjautuminen onnistuu syötettäessä olemassaoleva käyttäjätunnus kirjautumislomakkeelle
+- jos käyttäjää ei olemassa, tulee tästä ilmoitus
 
 ### Kirjautumisen jälkeen
 
-Tehty - käyttäjä näkee aktiiviset projektit listana.
-
-Tehty - käyttäjä voi valita aktiivisen projektin
-Tehty  - valittuun aktiiviseen projektiin voi syöttää työaikoja
-
-Tehty - käyttäjä voi lisätä uuden projektin
-
-Tehty - käyttäjä voi kirjautua ulos järjestelmästä
-
-- pääkäyttäjä (ehkä muutkin) pääsee näkemään kaikkien käyttäjien työajat
-
-- pääkäyttäjä voi poistaa käyttäjätunnuksen.
-
-- pääkäyttäjä pääsee muokkaamaan töiden tyypittelyjä.
+- käyttäjä näkee projektit listana.
+- käyttäjä voi valita projektin
+- valittuun projektiin voi syöttää työaikoja
+- käyttäjä voi lisätä uuden projektin
+- käyttäjä voi kirjautua ulos järjestelmästä
+- käyttäjä voi nähdä projektin yhteenvedon
 
 ## Jatkokehitysideoita
+
+- Päivämäärän voi myös valita tehdylle työlle
+- Lisättyjä työaikoja voisi muokata ja poistaa
+- Lisättyjä projektieja voisi muokata ja poistaa
+- Tehdään sovellukseen toinen käyttäjätyyppi ylläpidolle
+- ylläpitäjä (ehkä muutkin) pääsee näkemään kaikkien käyttäjien työajat
+- ylläpitäjä voi poistaa käyttäjätunnuksen.
+- ylläpitäjä pääsee muokkaamaan töiden tyypittelyjä.
 
 Perustoiminnallisuuksien jälkeen:
 

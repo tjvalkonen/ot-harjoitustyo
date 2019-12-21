@@ -29,8 +29,7 @@ import timecard.domain.Timecard;
 
 
 public class TimecardUi extends Application {
-    private TimecardService timecardService;
-    
+    private TimecardService timecardService;   
     
     private Stage primaryStage;
    
@@ -49,10 +48,8 @@ public class TimecardUi extends Application {
     
     private VBox projectTopPane;
     private VBox projectSummaryPane;
-    // private VBox projectInfoPane;
 
-    // Style UI elements
-    
+    // Style UI elements   
     
     private String cssLayoutTopNavigation = "-fx-border-color: gray;\n" +
                    "-fx-background-color: deepskyblue;\n" +
@@ -103,7 +100,6 @@ public class TimecardUi extends Application {
     public Node createProjectNode(Project project) {
         HBox box = new HBox(0);
         box.setStyle(cssLayoutBorder01);
-        //box.setPrefWidth(748);
         Label label  = new Label(project.getName());
         label.setStyle(cssLayoutH2);
         label.setMinHeight(0);
@@ -129,8 +125,7 @@ public class TimecardUi extends Application {
     
     public Node createTimecardNode(Timecard timecard) {
         HBox box = new HBox(0);
-        //box.setStyle(cssLayoutBorder01);
-        
+
         int t = timecard.getTime();
         int hours = t / 60;
         int minutes = t % 60;
@@ -250,9 +245,7 @@ public class TimecardUi extends Application {
         addTimecardButton.setPadding(new Insets(5));
 
         addTimecardButton.setOnAction(e->{
-            
 
-            
             // field validations
             
             if (newTimecardHoursInput.getText().isEmpty() && newTimecardMinutesInput.getText().isEmpty()) {
@@ -298,9 +291,9 @@ public class TimecardUi extends Application {
             
                 if (timecardService.addTimecard(selectedProject.getId(), time, type, description, timecardService.getLoggedUser().getName())){                  
                     redrawProject();
-                    //timecardCreationMessage.setText("Timecard added!");
+                    // timecardCreationMessage.setText("Timecard added!");
                 } else {
-//                if something went wrong  
+                    // if something went wrong  
                 }  
             }
          });
@@ -396,7 +389,6 @@ public class TimecardUi extends Application {
         Button buttonTimecards = new Button("Timecards");
         buttonTimecards.setPadding(new Insets(5));
         buttonTimecards.setOnAction(e->{
-            //this.selectedProject = project;
             primaryStage.setScene(projectScene);
             redrawProject();
         });
@@ -536,13 +528,11 @@ public class TimecardUi extends Application {
         totalTimeRow.getChildren().addAll(totalTimeTitle, totalTime);
         
         Label etcTime  = new Label(selectedProject.getEtcString());
-        //etcTime.setStyle(cssLayoutBold);
         etcTime.setMinHeight(0);
         etcTime.setPrefWidth(100);
         etcTime.setPadding(new Insets(0));
         
         Label etcTimeTitle  = new Label("ETC:");
-        //etcTimeTitle.setStyle(cssLayoutBold);
         etcTimeTitle.setMinHeight(0);
         etcTimeTitle.setPrefWidth(100);
         
@@ -717,12 +707,10 @@ public class TimecardUi extends Application {
         newUserPane.getChildren().addAll(topNewUser, userCreationMessage, newUserFormPane); 
        
         newUserScene = new Scene(newUserPane, 750, 250);  
-
-        
+   
         // Projects list scene
         
         HBox projectsTopPane = new HBox(0);
-        //VBox projectsBottomPane = new VBox(0);
 
         // List projects here
         
@@ -736,7 +724,6 @@ public class TimecardUi extends Application {
         
         projectScollbar.setContent(projectNodes);
         projectsPane.setTop(projectsTopPane);
-        //projectsPane.setBottom(projectsBottomPane);
 
         Button addProjectsButton = new Button("Add Project");
         addProjectsButton.setPadding(new Insets(5));
@@ -771,14 +758,12 @@ public class TimecardUi extends Application {
         projectsListlabel.setStyle(cssLayoutWhiteBold);
         
         projectsTopPane.getChildren().addAll(projectsListlabel, addProjectsButton, spacer01, logoutButton2);  // 
-        //projectsBottomPane.getChildren().addAll();
         
         projectsListScene = new Scene(projectsPane, 750, 250);
 
         // Project scene
                
         projectTopPane = new VBox(0);
-//        projectInfoPane = new VBox(0);
         
         ScrollPane projectTimecardScollbar = new ScrollPane();
         BorderPane projectPane = new BorderPane(projectTimecardScollbar);
@@ -801,8 +786,6 @@ public class TimecardUi extends Application {
         projectsListButton.setMinWidth(150);
         
         // List timecards
-        
-        //ScrollPane timecardScollbar = new ScrollPane();
         
         timecardNodes = new VBox(0);
         timecardNodes.setMaxWidth(700);
@@ -829,7 +812,6 @@ public class TimecardUi extends Application {
         
         projectTopPane.getChildren().addAll(projectTopPaneTimecards);
         projectPane.setTop(projectTopPane);
-        //projectPane.setBottom(projectInfoPane);
         
         projectScene = new Scene(projectPane, 750, 250);
         
@@ -845,7 +827,7 @@ public class TimecardUi extends Application {
         newProjectNameLabel.setPadding(new Insets(0));
 
         VBox nameInput = new VBox();
-        //nameInput.setStyle(cssLayoutTestBorder);
+
         nameInput.getChildren().addAll(newProjectNameLabel, newProjectNameInput);
         
         Label newEtcLabel = new Label("Estimated Time To Complete (ETC)");
@@ -869,15 +851,12 @@ public class TimecardUi extends Application {
         newEtcMinutesInput.setPadding(new Insets(5));
 
         VBox etcInputD = new VBox();
-        //etcInputD.setStyle(cssLayoutTestBorder);
         etcInputD.getChildren().addAll(newEtcDaysLabel, newEtcDaysInput);
         
         VBox etcInputH = new VBox();
-        //etcInputH.setStyle(cssLayoutTestBorder);
         etcInputH.getChildren().addAll(newEtcHoursLabel, newEtcHoursInput);
         
         VBox etcInputM = new VBox();
-        //etcInputM.setStyle(cssLayoutTestBorder);
         etcInputM.getChildren().addAll(newEtcMinutesLabel, newEtcMinutesInput);
 
         HBox projectInfo01 = new HBox(0);
@@ -887,10 +866,8 @@ public class TimecardUi extends Application {
         Label projectCreationMessage = new Label("");
         projectCreationMessage.setPadding(new Insets(5,5,5,5));
         
-        // newProject.getChildren().addAll(nameInput, projectInfo01);
-        
         VBox projectInfo00 = new VBox();
-        //projectInfo00.setStyle(cssLayoutTestBorder);
+
         projectInfo00.getChildren().addAll(nameInput, newEtcLabel, projectInfo01);
         projectInfo00.setPrefWidth(400);
         projectInfo00.setMaxWidth(400);
@@ -970,15 +947,13 @@ public class TimecardUi extends Application {
         newProjectPane.getChildren().addAll(topNavigation, projectCreationMessage, projectInfo00, buttonArea); 
        
         addProjectScene = new Scene(newProjectPane, 750, 250);               
- 
-        
+
         // Project summary
         
         projectSummaryPane = new VBox();
         
         Button buttonTimecards = new Button("Timecards");
         buttonTimecards.setOnAction(e->{
-            //this.selectedProject = project;
             primaryStage.setScene(projectScene);
             redrawProject();
         });
@@ -1001,8 +976,7 @@ public class TimecardUi extends Application {
             projectSummaryPane.getChildren().addAll(summaryTopLabel, project(selectedProject));
         } else {
             projectSummaryPane.getChildren().addAll(summaryTopLabel);
-        }  
-
+        }
              
         projectSummaryScene = new Scene(projectSummaryPane, 750, 250);
         
