@@ -1,10 +1,10 @@
 # Käyttöohje
 
-Lataa tiedosto [timecard.jar](x)
+Lataa tiedosto [timecard.jar](https://github.com/tjvalkonen/ot-harjoitustyo/releases/download/v1.0/timecard-v10.jar)
 
 ## Konfigurointi
 
-Ohjelma olettaa, että sen käynnistyshakemistossa on konfiguraatiotiedosto _config.properties_, joka määrittelee käyttäjät ja todot tallettavien tiedostojen nimet. Tiedoston muoto on seuraava
+Ohjelma olettaa, että sen käynnistyshakemistossa on konfiguraatiotiedosto _config.properties_, joka määrittelee projektit, käytäjät ja työaikamerkinnät tallettavien tiedostojen nimet. Tiedoston muoto on seuraava
 
 ```
 projectFile=projects.txt
@@ -17,7 +17,7 @@ timecardFile=timecards.txt
 Ohjelma käynnistetään komennolla 
 
 ```
-java -jar timecard.jar
+java -jar timecard-v10.jar
 ```
 
 ## Kirjautuminen
