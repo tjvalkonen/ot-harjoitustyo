@@ -45,6 +45,12 @@ mvn package
 
 Luotu tiedosto löytyy hakemistosta _target_ nimellä _Timecard-1.0-SNAPSHOT.jar_
 
+Sovellus olettaa että samassa kansiossa on tiedosto: config.properties
+Tiedosto on tekstitiedosto, jonka sisältö on:
+projectFile=projects.txt
+userFile=users.txt
+timecardFile=timecards.txt
+
 Sovelluksen voi käynnistää komennolla:
 
 ```
