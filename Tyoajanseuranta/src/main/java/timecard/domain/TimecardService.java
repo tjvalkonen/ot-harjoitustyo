@@ -121,6 +121,20 @@ public class TimecardService {
         
         return timeString;
     }
+    
+    public int getProjectJobTypeTimeInt(int projectId, int type) {          
+        List<Timecard> timecards = timecardDao.getAll()
+            .stream()
+            .filter(t-> t.getProjectId() == projectId)
+            .filter(t-> t.getType() == type)
+            .collect(Collectors.toList());
+        int time = 0;
+        for (Timecard t : timecards) {
+            time += t.getTime();
+        }
+        
+        return time;
+    }
         
     /**
     * sisäänkirjautuminen

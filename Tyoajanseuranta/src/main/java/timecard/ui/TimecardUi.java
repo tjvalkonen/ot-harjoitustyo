@@ -4,7 +4,10 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import javafx.scene.chart.*;
 
 import timecard.dao.FileProjectDao;
 import timecard.dao.FileTimecardDao;
@@ -434,6 +438,7 @@ public class TimecardUi extends Application {
         
         VBox summaryPane = new VBox();
         summaryPane.setPadding(new Insets(5,5,5,5));
+        summaryPane.setPrefWidth(400);
 
         Label notselectedTime  = new Label(timecardService.getProjectJobTypeTime(selectedProject.getId(), 0));
         notselectedTime.setMinHeight(0);
@@ -542,9 +547,44 @@ public class TimecardUi extends Application {
         etcTimeRow.getChildren().addAll(etcTimeTitle, etcTime);
         etcTimeRow.setPadding(new Insets(15,0,0,0));
         
-        summaryPane.getChildren().addAll(notselectedTimeRow, designTimeRow, programmingTimeRow, testingTimeRow, maintenanceTimeRow, totalTimeRow, etcTimeRow);
+        summaryPane.getChildren().addAll(project(selectedProject), notselectedTimeRow, designTimeRow, programmingTimeRow, testingTimeRow, maintenanceTimeRow, totalTimeRow, etcTimeRow);
         
-        projectSummaryPane.getChildren().addAll(topLabel, project(selectedProject), summaryPane);
+        // Graph
+        
+        VBox graphPane = new VBox(0);
+        
+        int jobNotSelected = 0;
+        int jobDesign = 0;
+        int jobProgramming = 0;
+        int jobTesting = 0;
+        int jobMaintenance = 0;
+        
+        jobNotSelected = timecardService.getProjectJobTypeTimeInt(selectedProject.getId(),0);
+        jobDesign = timecardService.getProjectJobTypeTimeInt(selectedProject.getId(),1);
+        jobProgramming = timecardService.getProjectJobTypeTimeInt(selectedProject.getId(),2);
+        jobTesting = timecardService.getProjectJobTypeTimeInt(selectedProject.getId(),3);
+        jobMaintenance = timecardService.getProjectJobTypeTimeInt(selectedProject.getId(),4);
+        
+        ObservableList<PieChart.Data> pieChartData =
+                FXCollections.observableArrayList(
+                new PieChart.Data("Not Selected", jobNotSelected),
+                new PieChart.Data("Design", jobDesign),
+                new PieChart.Data("Programming", jobProgramming),
+                new PieChart.Data("Testing", jobTesting),
+                new PieChart.Data("Maintenance", jobMaintenance));
+        final PieChart chart = new PieChart(pieChartData);
+        chart.setLabelLineLength(10);
+        chart.setLegendVisible(false);
+        chart.setLegendSide(Side.LEFT);
+        chart.setTitle("Job Types");
+
+
+        graphPane.getChildren().addAll(chart);
+        
+        HBox summaryAndGraph = new HBox();
+        summaryAndGraph.getChildren().addAll(summaryPane, graphPane);
+       
+        projectSummaryPane.getChildren().addAll(topLabel, summaryAndGraph);
     }
     
     public Node project (Project project) {
