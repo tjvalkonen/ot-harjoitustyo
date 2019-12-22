@@ -9,7 +9,6 @@ public class Timecard {
     
     private int id;
     private int projectId;
-//    private Date date;
     private int time;
     private int type;
     private String description;
@@ -18,7 +17,6 @@ public class Timecard {
     public Timecard(int id, int projectId, int time, int type, String description, String username) { // Date date,
         this.id = id;
         this.projectId = projectId;
-//        this.date = date;
         this.time = time;
         this.type = type;
         this.description = description;
@@ -49,14 +47,6 @@ public class Timecard {
     public int getProjectId() {
         return projectId;
     }
-    
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
-//    
-//    public Date getDate() {
-//        return date;
-//    }
     
     public void setTime(int time) {
         this.time = time;

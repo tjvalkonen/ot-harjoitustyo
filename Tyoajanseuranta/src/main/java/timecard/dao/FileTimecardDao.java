@@ -34,7 +34,6 @@ public class FileTimecardDao implements TimecardDao {
                 timecards.add(timecard);
             }
         } catch (Exception e) {
-            //System.out.println("file:  " +file);
             FileWriter writer = new FileWriter(new File(file));
             writer.close();
         }        

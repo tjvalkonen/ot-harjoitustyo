@@ -25,7 +25,6 @@ public class FileProjectDao implements ProjectDao {
                 projects.add(project);
             }
         } catch (Exception e) {
-            //System.out.println("file:  " +file);
             FileWriter writer = new FileWriter(new File(file));
             writer.close();
         }        

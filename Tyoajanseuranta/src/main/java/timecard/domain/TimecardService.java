@@ -76,7 +76,6 @@ public class TimecardService {
             .stream()
             .filter(t-> t.getProjectId() == projectId)
             .collect(Collectors.toList());
-        // ArrayUtils.reverse(timecards);
         Collections.reverse(timecards);
         
         return timecards;
