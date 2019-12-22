@@ -8,6 +8,8 @@
 
 [Arkkitehtuuri](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
 
+[Työaikakirjanpito](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/testausdokumentti.md)
+
 [Työaikakirjanpito](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/tyoaikakirjanpito.md)
 
 ## Releaset
