@@ -63,9 +63,9 @@ Projektin työaikojen tarkistelunäkymässä (Timecards) voidaan lisätä työai
 
 ## Projektin yhteenveto
 
-Projektin yhteenvetonäkymässä (Project Summary) on listattuna projektiin merkityt työajat työntyypeittäin, käytetty kokonaisaika sekä arvioitu projektin kokonaistyäaika. lisäksi työntyyppien ajankäyttö näkyy graafina. _Projects List_ napilla pääsee projektit lista -näkymään. _Timecards_ napilla pääsee  Projektin työaikojen tarkistelunäkymään (Timecards).
+Projektin yhteenvetonäkymässä (Project Summary) on listattuna projektiin merkityt työajat työntyypeittäin, käytetty kokonaisaika sekä arvioitu projektin kokonaistyäaika. lisäksi työntyyppien ajankäyttö näkyy graafina. _Projects List_ napilla pääsee projektit lista -näkymään (Projects List). _Timecards_ napilla pääsee  Projektin työaikojen tarkistelunäkymään (Timecards).
 
 <img src="https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/kuvat/projectsummary.png">
 
-Oikeassa ylänurkassa on _Logout_ nappi, jota painamalla käyttäjä kirjautuu ulos sovelluksesta ja sovellus palaa takaisin kirjaantumisnäkymään.
+Oikeassa ylänurkassa on _Logout_ nappi, jota painamalla käyttäjä kirjautuu ulos sovelluksesta ja sovellus palaa takaisin kirjautumisnäkymään (Login).
 
