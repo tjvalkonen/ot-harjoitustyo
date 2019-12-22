@@ -13,14 +13,25 @@ public class User {
         this.name = name;
         this.username = username;
     }
-
+    /**
+    * Käyttäjätunnukseen liitetyn nimen hakeminen
+    */
+    
     public String getName() {
         return name;
     }
-
+    
+    /**
+    * Käyttäjätunnuksen hakeminen
+    */
+    
     public String getUsername() {
         return username;
     }
+    
+    /**
+    * Käyttäjätunnuksen vertaaminen toiseen
+    */
     
     @Override
     public boolean equals(Object obj) {

@@ -20,26 +20,56 @@ public class Project {
         this.etc = etc;
     }
     
+    /**
+    * Projektin tunnuksen asettaminen
+    *
+    */
+    
     public void setId(int id) {
         this.id = id;
     }
+
+    /**
+    * Projektin tunnuksen hakeminen
+    *
+    */
     
     public int getId() {
         return id;
     }
-
+    
+    /**
+    * Projektin nimen hakeminen
+    *
+    */
+    
     public String getName() {
         return name;
     }
 
+    /**
+    * Projektin arvioidun työajan asettaminen (minuutteina)
+    *
+    */
+    
     public void setEtc(int time) {
         this.etc = etc;
     }
     
+    /**
+    * Projektin arvioidun työajan hakeminen (minuutteina)
+    *
+    */
+    
     public int getEtc() {
         return etc;
     }
-
+    
+    /**
+    * Projektin arvioidun työajan hakeminen tekstimuodossa
+    *
+    */
+    
     public String getEtcString() {
         int hours = etc / 60;
         int minutes = etc % 60;
@@ -47,7 +77,12 @@ public class Project {
         
         return timeString;
     }
-
+    
+    /**
+    * Projektin vertaaminen toiseen
+    *
+    */
+    
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Project)) {

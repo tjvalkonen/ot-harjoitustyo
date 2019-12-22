@@ -44,6 +44,11 @@ public class TimecardService {
         return true;
     }
     
+    /**
+    * Kaikkien projektien hakeminen listaan
+    *
+    */
+    
     public List<Project> getProjects() {
           
         List<Project> projects = projectDao.getAll()
@@ -71,6 +76,11 @@ public class TimecardService {
         return true;
     }
     
+    /**
+    * Projektin kaikkien työaikamerkintöjen hakeminen listaan
+    *
+    */ 
+    
     public List<Timecard> getTimecards(int projectId) {          
         List<Timecard> timecards = timecardDao.getAll()
             .stream()
@@ -82,7 +92,7 @@ public class TimecardService {
     }
 
     /**
-    * Projektin tietojen hakeminen
+    * Projektin kokonaistyöajan hakeminen tekstimuodossa
     *
     */  
     
@@ -103,6 +113,11 @@ public class TimecardService {
         return timeString;
     }
 
+    /**
+    * Projektin tietyn työtyypin kokonaistyöajan hakeminen tekstimuodossa
+    *
+    */ 
+    
     public String getProjectJobTypeTime(int projectId, int type) {          
         List<Timecard> timecards = timecardDao.getAll()
             .stream()
@@ -120,6 +135,11 @@ public class TimecardService {
         
         return timeString;
     }
+  
+    /**
+    * Projektin tietyn työtyypin kokonaistyöajan hakeminen numeromuodossa minuuteina
+    *
+    */
     
     public int getProjectJobTypeTimeInt(int projectId, int type) {          
         List<Timecard> timecards = timecardDao.getAll()
