@@ -1,5 +1,7 @@
 # Työajanseuranta
 
+Sovelluksen avulla pidetään kirjaa projekteihin käytetystä työajasta.
+
 ## Dokumentaatio
 
 [Käyttöohje](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/dokumentointi/kayttoohje.md)
