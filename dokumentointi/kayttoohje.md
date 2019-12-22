@@ -1,6 +1,6 @@
 # Käyttöohje
 
-Lataa tiedosto [timecard.jar](https://github.com/tjvalkonen/ot-harjoitustyo/releases/download/v1.0/timecard-v10.jar)
+Lataa tiedosto [timecard-v10.jar](https://github.com/tjvalkonen/ot-harjoitustyo/releases/download/v1.0/timecard-v10.jar)
 
 ## Konfigurointi
 
