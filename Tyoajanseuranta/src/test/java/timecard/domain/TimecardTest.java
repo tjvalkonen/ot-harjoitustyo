@@ -156,4 +156,13 @@ public class TimecardTest {
         timecardService.addTimecard(0,60,2,"ohjelmointi","testuser");    
         assertEquals(false, timecardService.getTimecards(0).isEmpty());
     }
+    
+    @Test
+    public void getProjectjobTypeTimeRetunsOk() {
+        timecardService.addProject("name", 60);
+        timecardService.addTimecard(0,60,1,"suunnittelu","testuser");
+        timecardService.addTimecard(0,30,2,"ohjelmointi","testuser");    
+        assertEquals(60, timecardService.getProjectJobTypeTimeInt(0,1));
+    } 
+    
 }

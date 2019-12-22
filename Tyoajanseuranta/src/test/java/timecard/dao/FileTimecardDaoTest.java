@@ -20,20 +20,20 @@ public class FileTimecardDaoTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();    
   
-    File userFile;  
+    File timecardFile;  
     TimecardDao dao;    
     
     @Before
     public void setUp() throws Exception {
-        userFile = testFolder.newFile("testfile_users.txt");  
+        timecardFile = testFolder.newFile("testfile_users.txt");  
         UserDao userDao = new FakeUserDao();
         userDao.create(new User("test", "Test User"));
         
-        try (FileWriter file = new FileWriter(userFile.getAbsolutePath())) {
+        try (FileWriter file = new FileWriter(timecardFile.getAbsolutePath())) {
             file.write("0;0;60;1;Job;Test User\n");
         }
         
-        dao = new FileTimecardDao(userFile.getAbsolutePath());        
+        dao = new FileTimecardDao(timecardFile.getAbsolutePath());        
     }
    
     @Test
@@ -64,6 +64,6 @@ public class FileTimecardDaoTest {
     
     @After
     public void tearDown() {
-        userFile.delete();
+        timecardFile.delete();
     } 
 }
