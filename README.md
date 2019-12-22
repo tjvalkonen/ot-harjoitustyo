@@ -51,9 +51,11 @@ Luotu tiedosto löytyy hakemistosta _target_ nimellä _Timecard-1.0-SNAPSHOT.jar
 
 Sovellus olettaa että samassa kansiossa on tiedosto: config.properties
 Tiedosto on tekstitiedosto, jonka sisältö on:
+<pre>
 projectFile=projects.txt
 userFile=users.txt
 timecardFile=timecards.txt
+</pre>
 
 Sovelluksen voi käynnistää komennolla:
 
