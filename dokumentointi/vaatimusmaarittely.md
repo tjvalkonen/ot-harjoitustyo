@@ -10,7 +10,7 @@ Sovelluksella on yksi käyttäjätyyppi.
 
 ## Käyttöliittymäluonnos
 
-Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin projekti sovelluksessa jo olevista projekteista. Valittuun projektiin voi syöttää työaikoja käyttäjäkohtaisesti. Työaikoja syötettäessä valitaan myös työn tyyppi. Työn tyyppejä voi lisätä ja muokata erikseen ylläpidon näkymästä. Työaikaa syötettäessä voidaan lisätä lyhyt tekstimuotoinen kuvaus työstä. 
+Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin projekti sovelluksessa jo olevista projekteista. Valittuun projektiin voi syöttää työaikoja käyttäjäkohtaisesti. Työaikoja syötettäessä valitaan myös työn tyyppi. Työaikaa syötettäessä voidaan lisätä lyhyt tekstimuotoinen kuvaus työstä. 
 
 ## Perusversion tarjoama toiminnallisuus
 
@@ -39,7 +39,7 @@ Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin p
 - Tehdään sovellukseen toinen käyttäjätyyppi ylläpidolle
 - ylläpitäjä (ehkä muutkin) pääsee näkemään kaikkien käyttäjien työajat
 - ylläpitäjä voi poistaa käyttäjätunnuksen.
-- ylläpitäjä pääsee muokkaamaan töiden tyypittelyjä.
+- ylläpitäjä pääsee lisäämään ja muokkaamaan töiden tyypittelyjä.
 
 Perustoiminnallisuuksien jälkeen:
 
