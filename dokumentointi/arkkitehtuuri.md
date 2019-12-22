@@ -16,17 +16,17 @@ Käyttöliittymässä on kuusi erillistä näkymää
 - Projektit lista (Projects List)
 - Uuden projektin lisääminen (Add Project)
 - Työaikojen lisääminen valittuun projektiin (Timecards)
-- Projektin yhteenveto
+- Projektin yhteenveto (Project Summary)
 
-Näkymät ovat toteutettu omina [Scene](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html)-oliona. Käyttöiittymä on toteutettu luokassa [timecard.ui.TimecardUi](https://x).
+Näkymät ovat toteutettu omina [Scene](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html)-oliona. Käyttöiittymä on toteutettu luokassa [timecard.ui.TimecardUi](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/Tyoajanseuranta/src/main/java/timecard/ui/TimecardUi.java).
 
 Näkymissä joissa on päivittyvää tietoa, kutsutaan niihin liittyviä metodeja, jotka piirtävät tarvittaessa näkymän uudelleen.
 
 ## Sovelluslogiikka
 
-Sovelluksen datamallin muodostavat luokat [User] [Project] [Timecard]
+Sovelluksen datamallin muodostavat luokat [User](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/Tyoajanseuranta/src/main/java/timecard/domain/User.java) [Project](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/Tyoajanseuranta/src/main/java/timecard/domain/Project.java) [Timecard](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/Tyoajanseuranta/src/main/java/timecard/domain/Timecard.java)
 
-Luokka [TimecardService] vastaa sovelluksen toiminnallisuudesta
+Luokka [TimecardService](https://github.com/tjvalkonen/ot-harjoitustyo/blob/master/Tyoajanseuranta/src/main/java/timecard/domain/TimecardService.java) vastaa sovelluksen toiminnallisuudesta
 
 ## Tietojen pysyväistallennus
 
@@ -37,9 +37,11 @@ Luokat _FileUserDao_ , _FileProjectDao_ ja _FileTimecard_ hoitavat tietojen tall
 Käyttäjätiedot, projektit sekä työaikamerkinnät tallenetaan omiin tiedostoihinsa.
 
 config.properties dokumenttissa on määritelty tiedostot seuraavasti:
+<pre>
 projectFile=projects.txt
 userFile=users.txt
 timecardFile=timecards.txt
+</pre>
 
 Projektit tallentuvat seuraavassa muodossa:
 
