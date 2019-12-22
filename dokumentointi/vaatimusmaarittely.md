@@ -29,7 +29,7 @@ Käyttäjän kirjautumisen jälkeen, voidaa lisätä projekti tai valita jokin p
 - valittuun projektiin voi syöttää työaikoja
 - käyttäjä voi lisätä uuden projektin
 - käyttäjä voi kirjautua ulos järjestelmästä
-- käyttäjä voi nähdä projektin yhteenvedon
+- käyttäjä voi nähdä projektin yhteenvedon, jossa myös graafi työntyyppien ajan jakautumisesta
 
 ## Jatkokehitysideoita
 
