@@ -16,6 +16,8 @@
 
 [Release v0.2](https://github.com/tjvalkonen/ot-harjoitustyo/releases/tag/v0.2)
 
+[Loppupalautus - Release v1.0](https://github.com/tjvalkonen/ot-harjoitustyo/releases/tag/v1.0)
+
 ## Komentorivitoiminnot
 
 ### Testaus
