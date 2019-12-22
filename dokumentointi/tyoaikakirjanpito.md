@@ -14,4 +14,6 @@
 | 17.12.| 6    | Uloskirjautuminen ja projektin yhteenvetonäkymä |
 | 18.12.| 4    | Toiminnallisuuksien ja ulkoasun kehitystä |
 | 19.12.| 5    | Kenttien tarkistukset |
-|       | 51   | Yhteensä |
+| 21.12.| 3    | Tarkistuksia ja dokumentointia |
+| 22.12.| 7    | Graafin lisääminen, dokumentointia, testauksia |
+|       | 61   | Yhteensä |
